@@ -1,0 +1,149 @@
+$width-body: 35cm;
+
+@font-face {
+    font-family: IRANSansX;
+    font-style: normal;
+    font-weight: 700;
+    src: 'fonts/woff/IRANSansX-Bold.woff' format('woff'),
+    'fonts/woff2/IRANSansX-Bold.woff2' format('woff2');
+}
+
+@font-face {
+    font-family: IRANSansX;
+    font-style: normal;
+    font-weight: 400;
+    src: 'fonts/woff/IRANSansX-Regular.woff' format('woff'),
+    'fonts/woff2/IRANSansX-Regular.woff2' format('woff2');
+}
+.print-list{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: block;
+    font-family: 'IRANSansX', sans-serif;
+    font-size: 20px;
+    .header{
+        position: relative;
+        width: $width-body;
+        margin: 0 auto;
+        height: 2.1cm;
+        img{
+            position: absolute;
+            right: 0;
+            width: 2.5cm;
+            height: 2.5cm;
+        }
+        .title{
+            position: relative;
+            padding-top: 0.2cm;
+            margin: 0 auto;
+            text-align: center;
+            margin-bottom: 0.5cm;
+        }
+        .description{
+            position: absolute;
+            //margin: 0 auto;
+            right: 13cm;
+            text-align: center;
+            strong{
+                font-weight: bold;
+            }
+        }
+    }
+    table{
+        position: relative;
+        width: $width-body;
+        margin: 0 auto;
+        margin-top: 0.5cm;
+        tr{
+            position: relative;
+            text-align: center;
+            border: 2px solid;
+            th{
+                border-radius: 5px;
+                border: 2px solid;
+                padding-right: 0.2cm;
+                padding-top: 0.2cm;
+                padding-bottom: 0.2cm;
+                margin-left: 1cm;
+                margin-right: 1cm;
+            }
+            td{
+                border: 2px solid;
+                padding-right: 0.2cm;
+                padding-top: 0.2cm;
+                padding-bottom: 0.2cm;
+                margin-left: 1cm;
+                margin-right: 1cm;
+            }
+        }
+    }
+    &.footer{
+        position: absolute;
+        width: $width-body;
+        top: 22cm;
+        height: 3cm;
+        left: 0;
+        right: 0;
+        margin: auto;
+        .row-half{
+            position: relative;
+            height: 0.5cm;
+        }
+        .row{
+            position: relative;
+            height: 1cm;
+            display: flex;
+            .phone-number{
+                position: absolute;
+                right: 0;
+            }
+            .fax{
+                position: relative;
+                margin: 0 auto;
+            }
+            .name-owner-team{
+                position: absolute;
+                left: 6cm;
+            }
+            .email{
+                position: absolute;
+                right: 0;
+            }
+            .signature{
+                position: relative;
+                left: 2cm;
+                &.split{
+                    left: 6.5cm;
+                }
+            }
+        }
+
+    }
+    &.date{
+        position: absolute;
+        display: block;
+        color: gray;
+        top: 0;
+        left: 0;
+        width: 220px;
+    }
+}
+.pagebreak{
+    position: relative;
+    display: block;
+    margin-top: 9cm;
+    bottom: 0;
+    height: 20px;
+    width: 20px;
+}
+
+
+.br{
+    position: relative;
+    display: block;
+    margin-top: 1cm;
+    bottom: 0;
+    height: 20px;
+    width: 20px;
+}
