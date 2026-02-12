@@ -16,13 +16,15 @@ class TestController extends Controller
 {
     public function mail()
     {
-        // set_time_limit(300); // 5 دقیقه
-        // $nonEmailUsers = KeepPasswords::withoutGlobalScopes()->get();
-        // foreach ($nonEmailUsers as $nonEmailUser) {
-        //     Accounts::where('email', $nonEmailUser->username)->update(['password' => $nonEmailUser->password]);
-        // }
-
-      
-        // $email->send();
+        set_time_limit(0);
+        ini_set('max_execution_time', 0);
+        $users = Accounts::all();
+        foreach ($users as $user) {
+            $code = "A" . Helper::generateFiveDigitCodeWithZero();
+            $password = trim($user->password);
+            if (str_contains($password, '$2y$10$') && strlen($password) > 30) {
+                Accounts::where('id', $user->id)->update(["password" => $code]);
+            }
+        }
     }
 }

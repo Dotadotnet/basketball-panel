@@ -71,50 +71,55 @@
                     'teams_names.name as team_name',
                     'teams_game_seasons.name as seasons_name',
                 )
+                ->orderByDesc('id')
                 ->where('accounts_id', '=', $user_id)
                 ->get();
+
         @endphp
         @if (!$history->isEmpty())
             <div class="container px-5 pt-5 table-div">
-                <table class="table table-striped text-center table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col"></th>
-                            <th scope="col">ثبت نهایی</th>
-                            <th scope="col">شماره پیراهن</th>
-                            <th scope="col">سمت</th>
-                            <th scope="col">رده</th>
-                            <th scope="col">تیم</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @php $i = 0; @endphp
-
-                        @foreach ($history as $l)
+                <h2 style="margin: 10px">فعالیت های قبلی :</h2>
+                <div style="max-height: 400px ; overflow-y: auto">
+                    <table class="table table-striped text-center table-hover">
+                        <thead>
                             <tr>
-                              
-                                <td>
-                                    <a href="{{ route('admin.review.confirmation.show', ['id' => $hash->encode($list->id)]) }}"
-                                        class="btn btn-outline-dark">مشاهده</a>
-                                </td>
-                                <td>
-                                    @if ($l->status_user_submit == 'undone')
-                                        {{ 'انجام نشده' }}
-                                    @else
-                                        {{ 'انجام گردید' }}
-                                    @endif
-                                </td>
-                                <td>{{ $l->t_shirt_number }}</td>
-                                <td>
-                                    {{ $l->post_name }}
-                                </td>
-                                <td>{{ $l->seasons_name }}</td>
-                                <td>{{ $l->team_name }}</td>
+                                <th scope="col"></th>
+                                <th scope="col">ثبت نهایی</th>
+                                <th scope="col">شماره پیراهن</th>
+                                <th scope="col">سمت</th>
+                                <th scope="col">رده</th>
+                                <th scope="col">تیم</th>
                             </tr>
-                            @php $i++; @endphp
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @php $i = 0; @endphp
+
+                            @foreach ($history as $l)
+                                <tr>
+
+                                    <td>
+                                        <a href="{{ route('admin.review.confirmation.show', ['id' => $hash->encode($list->id)]) }}"
+                                            class="btn btn-outline-dark">مشاهده</a>
+                                    </td>
+                                    <td>
+                                        @if ($l->status_user_submit == 'undone')
+                                            {{ 'انجام نشده' }}
+                                        @else
+                                            {{ 'انجام گردید' }}
+                                        @endif
+                                    </td>
+                                    <td>{{ $l->t_shirt_number }}</td>
+                                    <td>
+                                        {{ $l->post_name }}
+                                    </td>
+                                    <td>{{ $l->seasons_name }}</td>
+                                    <td>{{ $l->team_name }}</td>
+                                </tr>
+                                @php $i++; @endphp
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         @endif
         <div class="row mt-1">
@@ -254,4 +259,5 @@
             </div>
         </div>
     </div>
+    <br>
 @endsection
