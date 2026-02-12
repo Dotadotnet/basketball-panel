@@ -1,7 +1,7 @@
 <div dir="ltr" class="container col-xl-10 col-xxl-8 px-4 py-5">
     <div class="row align-items-center g-lg-5 py-5">
         <div class="col-lg-7 text-center text-lg-start">
-            <img class="w-25" src="/images/Logo.jpg" />
+            <img class="w-25" src="/images/Banner.jpg" />
             <h1 class="display-4 fw-bold lh-1 mb-3">سامانه بسکتبال</h1>
             <p class="col-lg-10 fs-4">پایگاه داده سند محور</p>
         </div>

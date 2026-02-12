@@ -22,6 +22,7 @@ class AccountsVerifyController extends Controller
         if ($result->status == 'old') {
             return view('emails.verify_email_old');
         }
+        
 
         if ($result->status == 'used') {
             return view('emails.verify_email_used');

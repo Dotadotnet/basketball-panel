@@ -39,7 +39,7 @@
                     </form>
                 </div>
             </div>
-            <div class="col-1"></div>
+            <div class="col-1"></div> 
         </div>
     </div>
 @endsection
@@ -48,6 +48,5 @@
     <script src="{{ asset('js/sweetalert_2.1.0.min.js') }}"></script>
     <script src="{{ asset('js/jquery-3.6.0.min.js') }}" crossorigin="anonymous"></script>
     <script>
-
     </script>
 @endsection

@@ -4,12 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * @method where(string $string, mixed $email)
  */
-class Accounts extends Model
+class Accounts extends Authenticatable
 {
+    protected $guard = "user";
     use HasFactory;
     protected $fillable = [
         'name',
@@ -24,4 +26,3 @@ class Accounts extends Model
         return $this->hasMany(ListOfTeamNames::class, 'accounts_id');
     }
 }
-

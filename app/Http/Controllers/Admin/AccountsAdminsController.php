@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\MegaAuthenticationController;
 use App\Models\TeamsPaymentsUsabilities;
 use App\Models\TeamsReceiptPayments;
 use Hashids\Hashids;
+use Illuminate\Support\Facades\Auth;
 
 class AccountsAdminsController extends Controller
 {
@@ -14,28 +14,46 @@ class AccountsAdminsController extends Controller
 
     public function login()
     {
-        return view('admin.login');
+        return view('accounts.login_admin');
     }
 
     public function logout()
     {
-        $mega = new MegaAuthenticationController();
-        $mega->destroy('admin');
-
-        return redirect()->route('admin.login');
+        Auth::guard('admin')->logout();
+        return redirect('/admin');
     }
 
     public function payment()
     {
+        $status = request()->get('status');
+        $search = request()->get('search') ? request()->get('search') : "";
+        $allowedStatuses = ['correct', 'defective', 'awaitingReview']; // لیست وضعیت‌های دیتابیس
         $payments = TeamsReceiptPayments::with('usabilities')
             ->with('accounts')
-            ->orderByDesc('id')
-            ->paginate(11);
-//        $payments = TeamsPaymentsUsabilities::with('payment')->get();
-//        dd($payments);
+            ->when($search, function ($q) use ($search) {
+                $words = explode(' ', $search);
+                $q->whereHas('accounts', function ($query) use ($words) {
+                    foreach ($words as $word) {
+                        if ($word === '') continue;
+                        $query->where(function ($sub) use ($word) {
+                            $sub->where('name', 'like', "%{$word}%")
+                                ->orWhere('surname', 'like', "%{$word}%");
+                        });
+                    }
+                });
+            })
+            ->when($status && in_array($status, $allowedStatuses), function ($q) use ($status) {
+                $q->where('status', $status);
+            })->orderByDesc('id')
+            ->paginate(10)
+            ->appends(request()->all());
+
+
         return view('admin.payment', [
             'payments' => $payments,
             'i' => 0,
+            "status" => $status,
+            "search" => $search
         ]);
     }
 

@@ -2,9 +2,9 @@
 
 namespace App\Http\Middleware;
 
-use App\Http\Controllers\MegaAuthenticationController;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MegaAuthenticationMiddleware
 {
@@ -20,7 +20,7 @@ class MegaAuthenticationMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if ((new MegaAuthenticationController())->check('admin')) {
+        if (Auth::guard('admin')->user()) {
             return $next($request);
         }
 

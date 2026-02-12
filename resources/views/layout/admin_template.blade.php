@@ -1,5 +1,7 @@
 @extends('layout.initialize')
-@section('title') داشبورد ادمین @yield('titleSecond') @endsection
+@section('title')
+    داشبورد ادمین @yield('titleSecond')
+@endsection
 @section('styles')
     <link href="{{ asset('templates/accounts/bootstrap.min.css') }}" rel="stylesheet" crossorigin="anonymous">
 
@@ -65,53 +67,72 @@
     <link href="{{ asset('templates/accounts/sidebars.css') }}" rel="stylesheet">
 @endsection
 @section('body')
+    <link rel="stylesheet" href="{{ asset('css/polipop.min.css') }}" />
+    <script src="{{ asset('js/polipop.min.js') }}"></script>
+    <script>
+        var polipop = new Polipop('mypolipop', {
+            layout: 'popups',
+            pool: 3,
+            life: 3000,
+        });
+    </script>
+    <main class="d-flex flex-nowrap">
+        <div class="d-flex fixed flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
+            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                <svg class="bi pe-none me-2" width="40" height="32">
+                    <use xlink:href="#bootstrap" />
+                </svg>
+                <span class="fs-4">داشبورد ادمین</span>
+            </a>
+            <hr>
+            <ul class="nav nav-pills flex-column mb-auto" dir="rtl">
+                <li class="nav-item">
+                    <a href="{{ route('admin.review.confirmation.list') }}" class="nav-link active" aria-current="page">
+                        بررسی ورود اطلاعات
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.payment') }}" class="nav-link text-white">
+                        پرداختی‌ها
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.setting.game_season.list') }}" class="nav-link text-white">
+                        تنظیمات فصل مسابقاتی
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.admin_users.index') }}" class="nav-link text-white">
+                        کاربران ادمین
+                    </a>
 
-<main class="d-flex flex-nowrap">
-    <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
-        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-            <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
-            <span class="fs-4">داشبورد ادمین</span>
-        </a>
-        <hr>
-        <ul class="nav nav-pills flex-column mb-auto"  dir="rtl">
-            <li class="nav-item">
-                <a href="{{ route('admin.review.confirmation.list') }}" class="nav-link active" aria-current="page">
-                    بررسی ورود اطلاعات
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('admin.payment') }}" class="nav-link text-white">
-                    پرداختی‌ها
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('admin.setting.game_season.list') }}"  class="nav-link text-white">
-                    تنظیمات فصل مسابقاتی
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('admin.admin_users.index') }}" class="nav-link text-white">
-                    کاربران ادمین
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('admin.logout') }}" class="nav-link text-white">
-                    خروج
-                </a>
-            </li>
-        </ul>
-    </div>
-    <div class="b-example-divider b-example-vr"></div>
-    @yield('content')
-</main>
-
-
-
-
+                </li>
+                <li>
+                    <a href="{{ route('admin.logout') }}" class="nav-link text-white">
+                        خروج
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="b-example-divider b-example-vr"></div>
+        <div style="overflow: auto; width: 100%" >
+            @yield('content')
+        </div>
+    </main>
 @endsection
 
 @section('scripts')
     <script src="{{ asset('templates/accounts/bootstrap.bundle.min.js') }}" crossorigin="anonymous"></script>
-
+    <script>
+        const messagesRes = @json(session('messages'));
+        const messages = JSON.parse(messagesRes);
+        if (Array.isArray(messages)) {
+            messages.forEach((message) => {
+                polipop.add(message);
+            })
+        } else {
+            polipop.add(messages);
+        }
+    </script>
     <script src="{{ asset('templates/accounts/sidebars.js') }}"></script>
 @endsection

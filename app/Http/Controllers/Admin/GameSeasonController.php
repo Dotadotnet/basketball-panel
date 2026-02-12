@@ -15,9 +15,25 @@ class GameSeasonController extends Controller
 {
     public function list()
     {
-//        $list = TeamsGameSeasons::paginate(10)->sortByDesc('start_time_at');
-        $list = DB::table('teams_game_seasons')->orderByDesc('start_time_at')->paginate(8);
+        //        $list = TeamsGameSeasons::paginate(10)->sortByDesc('start_time_at');
+        $gender = request()->get('gender');
+        $category = request()->get('category');
+        $genderReve = "none";
+        if ($gender) {
+            if ($gender == "women") {
+                $genderReve = "men";
+            } else if ($gender == "men") {
+                $genderReve = "women";
+            }
+        }
         $cat = TeamsCategories::all();
+        $categoryIds = [];
+        foreach ($cat as $c) {
+            array_push($categoryIds, $c->id);
+        }
+        $list = DB::table('teams_game_seasons')->orderByDesc('start_time_at')->when($category && in_array($category, $categoryIds), function ($q) use ($category) {
+            $q->where('category_id', $category);
+        })->where('gender', "!=", $genderReve)->paginate(8);
         $allow = TeamsAllowedAge::all();
 
         return view('admin.setting.game-season.list', [
@@ -26,6 +42,8 @@ class GameSeasonController extends Controller
             'allowAge' => $allow,
             'i' => 0,
             'tools' => new ToolsController(),
+            "gender" => $gender,
+            "categorySelected" => $category
         ]);
     }
 
@@ -127,7 +145,5 @@ class GameSeasonController extends Controller
         return redirect()->back();
     }
 
-    public function archive()
-    {
-    }
+    public function archive() {}
 }

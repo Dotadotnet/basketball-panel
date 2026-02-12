@@ -18,7 +18,6 @@
         "livewire/livewire": "^2.10",
         "nyholm/psr7": "^1.8",
         "railsware/mailtrap-php": "^3.9",
-        "sendinblue/api-v3-sdk": "*",
         "shetabit/multipay": "^1.24",
         "symfony/http-client": "^7.4",
         "vinkla/hashids": "^10.0"

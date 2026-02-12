@@ -17,8 +17,20 @@ use Illuminate\Support\Facades\Session;
 
 class ConfirmationController extends Controller
 {
-    public function list($gender = 'women')
+    public function list()
     {
+
+        $gender = request()->get('gender');
+        $search = request()->get('search') ? request()->get('search') : "";
+        $genderRev = "none";
+        if ($gender) {
+            if ($gender == "women") {
+                $genderRev = "men";
+            } else if ($gender == "men") {
+                $genderRev = "women";
+            }
+        }
+
         $list = DB::table('list_of_team_names')
             ->join('teams_game_seasons', 'teams_game_seasons.id', '=', 'list_of_team_names.game_season_id')
             ->join('teams_names', 'teams_names.id', '=', 'list_of_team_names.team_name_id')
@@ -57,6 +69,7 @@ class ConfirmationController extends Controller
                 'list_of_team_names.photo_sports_insurance        as list__photo_sports_insurance',
                 'list_of_team_names.photo_contract_page_one       as list__photo_contract_page_one',
                 'list_of_team_names.photo_contract_page_two       as list__photo_contract_page_two',
+                'list_of_team_names.photo_coaching_card           as list__photo_coaching_card',
                 'teams_game_seasons.id                            as game__id',
                 'teams_game_seasons.created_at                    as game__created_at',
                 'teams_game_seasons.updated_at                    as game__updated_at',
@@ -78,21 +91,35 @@ class ConfirmationController extends Controller
                 'teams_categories.created_at                      as category__created_at',
                 'teams_categories.updated_at                      as category__updated_at',
                 'teams_categories.name                            as category__name'
-            )
-            ->where('list_of_team_names.status_user_submit', '=', 'done')
-            ->where('teams_game_seasons.gender', '=', $gender)
-//            ->orderBy('list_of_team_names.team_name_id')
-//            ->orderByDesc('list_of_team_names.status_approved')
-            ->paginate(11);
-
+            )->when($search, function ($q) use ($search) {
+                $words = explode(' ', $search);
+                $q->where(function ($query) use ($words) {
+                    foreach ($words as $word) {
+                        $query->where(function ($sub) use ($word) {
+                            $sub->where('list_of_team_names.name', 'like', "%{$word}%")
+                                ->orWhere('list_of_team_names.surname', 'like', "%{$word}%")
+                                ->orWhere('list_of_team_names.national_code', 'like', "%{$word}%")
+                                ->orWhere('teams_names.name', 'like', "%{$word}%")
+                                ->orWhere('teams_game_seasons.name', 'like', "%{$word}%");
+                        });
+                    }
+                });
+            })
+            ->where('teams_game_seasons.gender', "!=", $genderRev)
+            ->orderByDesc('list_of_team_names.id')
+            ->paginate(10)
+            ->appends(request()->all());
         return view('admin.review.confirmation.list', [
             'list' => $list,
             'i' => 0,
             'class' => null,
             'title' => null,
             'hash' => new Hashids(),
+            'gender' => $gender,
+            'search' => $search
         ]);
     }
+
 
     public function show($id)
     {
@@ -248,7 +275,7 @@ class ConfirmationController extends Controller
     {
         $national_code = ListOfTeamNames::find($listOfTeamNamesID)['national_code'];
         $this->existOldApproveListExpireContract($national_code, $team_name_id, $listOfTeamNamesID);
-//        dd($old_expire_contract, $team_name_id, $this->messageExpireContractUser, $this->messageExpireContractAdmin);
+        //        dd($old_expire_contract, $team_name_id, $this->messageExpireContractUser, $this->messageExpireContractAdmin);
     }
 
     protected function collectMessages()

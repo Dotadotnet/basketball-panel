@@ -10,6 +10,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
@@ -22,6 +23,7 @@ class FilesController extends Controller
     {
         return view('upload');
     }
+    
 
     public function directories_exists()
     {
@@ -53,21 +55,18 @@ class FilesController extends Controller
             $fileInput = $request->file($input_name);
             $destinationPath = $this->directory_name_get($directory_name);
             if ($fileInput != null) {
-                $megaAuth = new MegaAuthenticationController();
-                $physicalPath = Storage::disk('liara')->put(path: $destinationPath->slug,contents: $fileInput);
-
+                $physicalPath = Storage::disk('s3')->put(path: $destinationPath->slug,contents: $fileInput);
                 $files = new Files();
                 $files->name = $fileInput->getClientOriginalName();
                 $files->file_name = basename($physicalPath);
                 $files->file_address = $physicalPath;
-                $files->mime_type = Storage::disk('liara')->mimeType($physicalPath);
+                $files->mime_type = Storage::disk('s3')->mimeType($physicalPath);
                 $files->directories_id = $destinationPath->id;
-                $files->size = Storage::disk('liara')->size($physicalPath);
-                $files->hash_file = md5(Storage::disk('liara')->get($physicalPath));
+                $files->size = Storage::disk('s3')->size($physicalPath);
+                $files->hash_file = md5(Storage::disk('s3')->get($physicalPath));
                 $files->files_label_id = null;
-                $files->accounts_id = $megaAuth->get_account_id($account_type);
+                $files->accounts_id = Auth::guard('user')->id();
                 $files->save();
-
                 return $files['id'];
             }
 
@@ -94,14 +93,14 @@ class FilesController extends Controller
 
         // Check physical directory if file not exists in database
         // this code maybe complex to reading, but it's simple
-        foreach (Storage::disk('liara')->allDirectories() as $directory) {
-            foreach (Storage::disk('liara')->allFiles($directory) as $filePath) {
+        foreach (Storage::disk('s3')->allDirectories() as $directory) {
+            foreach (Storage::disk('s3')->allFiles($directory) as $filePath) {
                 foreach (Files::all() as $files) {
                     if ($files->file_address == $filePath) {
                         goto jumper;
                     }
                 }
-                Storage::disk('liara')->delete($filePath);
+                Storage::disk('s3')->delete($filePath);
                 jumper:
             }
         }

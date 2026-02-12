@@ -18,6 +18,7 @@ return new class() extends Migration
             $table->timestamps();
             $table->string('name');
             $table->string('surname');
+            $table->string("remember_token")->nullable();
             $table->string('email');
             $table->string('username');
             $table->string('password');

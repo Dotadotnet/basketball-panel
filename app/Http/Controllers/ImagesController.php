@@ -16,10 +16,12 @@ class ImagesController extends Controller
         $files = $files->find($hash->decode($id)[0]);
 
         $f = Storage::exists($files->file_address);
+
+        
         if($f){
             $f = Storage::get($files->file_address);
         }else{
-            $f = Storage::disk('liara')->get($files->file_address);
+            $f = Storage::disk('s3')->get($files->file_address);
         }
 
         $response = Response::make($f, 200);

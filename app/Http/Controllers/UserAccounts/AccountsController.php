@@ -13,10 +13,12 @@ use Illuminate\Support\Facades\Mail;
 
 class AccountsController extends Controller
 {
+    
     public function register(): Factory|View|Application
     {
         return view('accounts.register');
     }
+    
 
     public function login(): Factory|View|Application
     {

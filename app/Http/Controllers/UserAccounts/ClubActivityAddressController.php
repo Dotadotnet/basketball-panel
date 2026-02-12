@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\UserAccounts;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\MegaAuthenticationController;
 use App\Models\ClubActivityAddress;
 use Hashids\Hashids;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ClubActivityAddressController extends Controller
 {
     public function index()
     {
-        $id = (new MegaAuthenticationController())->get_account_id('user');
+        $id = Auth::guard('user')->id();
         $hashids = new Hashids();
         $res = ClubActivityAddress::where('accounts_id', '=', $id)->get();
         $i = 0;
@@ -31,7 +31,7 @@ class ClubActivityAddressController extends Controller
             'address' => 'required',
             'number_phone' => 'required|numeric'
         ]);
-        $id = (new MegaAuthenticationController())->get_account_id('user');
+        $id = Auth::guard('user')->id();
         $club = new ClubActivityAddress();
         $club->name = $valid['name'];
         $club->address = $valid['address'];

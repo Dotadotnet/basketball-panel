@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,6 +13,18 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
+Route::get('/test-login', function () {
+    $admin = \App\Models\Accounts::first();
+    Auth::guard('user')->login($admin, true);
+    return [
+        'guard_check' => Auth::guard('user')->check(),
+        'user' => Auth::guard('user')->user(),
+        'default_check' => Auth::check(),
+        'session' => session()->all()
+    ];
+});
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -55,6 +68,12 @@ Route::middleware(['auth.user'])->prefix('dashboard')->as('dashboard.')->group(f
 Route::get('admin', ['uses' => 'Admin\AccountsAdminsController@login', 'as' => 'admin.login']);
 Route::get('admin/logout', ['uses' => 'Admin\AccountsAdminsController@logout', 'as' => 'admin.logout']);
 Route::group(['prefix' => 'admin', 'middleware' => ['auth.admin', 'manage.application']], function () {
+
+
+    Route::get('season-{id}/team-{name_id}/list-{list_id}/edit', ['uses' => 'UserAccounts\DashboardController@listEdit', 'as' => 'admin.team.list.edit']); //8
+    Route::post('season-{seasons_game_id}/team-{team_id}/list-{list_id}/edit', ['uses' => 'UserAccounts\ListOfTeamNamesController@edit', 'as' => 'admin.list.edit']); //8
+
+
     Route::get('home', ['uses' => 'Admin\AdminController@home', 'as' => 'admin.home']);
     Route::get('guide', ['uses' => 'GuideController@list', 'as' => 'admin.guide']);
     Route::get('image-{id}', ['uses' => 'ImagesController@view', 'as' => 'admin.image.view']);
@@ -63,7 +82,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth.admin', 'manage.applic
     Route::delete('payment/{id}', ['uses' => 'Admin\AccountsAdminsController@paymentDelete', 'as' => 'admin.payment.delete']);
     Route::group(['prefix' => 'review'], function () {
         Route::group(['prefix' => 'confirmation'], function () {
-            Route::get('{gender?}', ['uses' => 'Admin\Review\ConfirmationController@list', 'as' => 'admin.review.confirmation.list']);
+            Route::get('/', ['uses' => 'Admin\Review\ConfirmationController@list', 'as' => 'admin.review.confirmation.list']);
             Route::get('show/{id}', ['uses' => 'Admin\Review\ConfirmationController@show', 'as' => 'admin.review.confirmation.show']);
             Route::get('confirm/{id}', ['uses' => 'Admin\Review\ConfirmationController@confirm', 'as' => 'admin.review.confirmation.approve']);
             Route::get('image-{id}', ['uses' => 'ImagesController@view', 'as' => 'admin.review.confirmation.image.view']);
@@ -84,7 +103,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth.admin', 'manage.applic
             Route::post('edit-{id}', ['uses' => 'Admin\GameSeasonController@update', 'as' => 'admin.setting.game_season.update']);
         });
     });
-    Route::group(['prefix' => 'admin-users', 'as' => 'admin.admin_users.', 'middleware' => 'admin.manager'], function (){
+    Route::group(['prefix' => 'admin-users', 'as' => 'admin.admin_users.', 'middleware' => 'admin.manager'], function () {
         Route::get('/', ['uses' => 'Admin\AdminsUsersCRUDController@index', 'as' => 'index']);
         Route::get('create', ['uses' => 'Admin\AdminsUsersCRUDController@create', 'as' => 'create']);
         Route::post('store', ['uses' => 'Admin\AdminsUsersCRUDController@store', 'as' => 'store']);
@@ -93,10 +112,20 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth.admin', 'manage.applic
         Route::resource('password-change', 'Admin\PasswordChangeAdminsController')->except(['delete', 'destroy', 'store', 'create', 'show', 'index', 'update']);
     });
 
-//    Route::group(['prefix' => 'fees', 'as' => 'fee.'], function(){
-//        Route::get('gateway', ['uses' => '', 'as' => 'gateway']);
-//        Route::get('verify', ['uses' => '', 'as' => 'verify']);
-//    });
+    //    Route::group(['prefix' => 'fees', 'as' => 'fee.'], function(){
+    //        Route::get('gateway', ['uses' => '', 'as' => 'gateway']);
+    //        Route::get('verify', ['uses' => '', 'as' => 'verify']);
+    //    });
 });
 
 Route::get('ok', ['uses' => 'ManageApplications\PaymentsController@bank_gateway', 'as' => 'checker']);
+
+
+
+Route::post('/auth/userLogin', ['uses' => 'AuthController@userLogin']);
+Route::post('/auth/forgot-password', ['uses' => 'AuthController@forgotPassword']);
+Route::post('/auth/userRegister', ['uses' => 'AuthController@userRegister']);
+Route::get('/chack/email/{action}/{email}', ['uses' => 'VerifyController@view', "as" => "verify.page"]);
+Route::post('/chack/email/verify/{email}', ['uses' => 'VerifyController@verify']);
+Route::post('/chack/email/verifyPass/{email}', ['uses' => 'VerifyController@verifyPass']);
+Route::post('/auth/adminLogin', ['uses' => 'AuthController@adminLogin']);

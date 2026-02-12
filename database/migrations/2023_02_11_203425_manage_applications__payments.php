@@ -18,8 +18,8 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->integer('bills_id')->nullable()->comment('related to one bill');
-            $table->timestamp('payment_deadline');
-            $table->timestamp('show_payment')->comment('زمان نمایش پرداخت');
+            $table->timestamp('payment_deadline')->nullable()->comment('مهلت پرداخت');
+            $table->timestamp('show_payment')->nullable()->comment('زمان نمایش پرداخت');
             $table->timestamp('paid_in')->nullable()->comment('پرداخت شده در تاریخ');
             $table->string('reference_id')->nullable()->comment('کد ارجاع-بازگشتی از درگاه');
             $table->enum('payment_status', ['paid', 'unpaid', 'awaiting-payment', 'initialize'])->default('initialize')->comment('وضعیت پرداختی');

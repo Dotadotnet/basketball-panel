@@ -59,6 +59,11 @@
                         <label class="input-group-text" for="inputGroupFile08">تصویر صفحه دوم قرارداد</label>
                     </div>
                     @error('photo_contract_page_two') <span class="error">{{ $message }}</span> @enderror
+                     <div class="input-group mb-3">
+                        <input type="file" class="form-control" id="inputGroupFile09" name="photo_coaching_card">
+                        <label class="input-group-text" for="inputGroupFile09">تصویر کارت مربی</label>
+                    </div>
+                    @error('photo_coaching_card') <span class="error">{{ $message }}</span> @enderror
                 </div>
                 <div class="col-1"></div>
                 <div class="col-5">

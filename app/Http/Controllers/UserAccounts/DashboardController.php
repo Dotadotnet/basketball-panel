@@ -4,7 +4,6 @@ namespace App\Http\Controllers\UserAccounts;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\FilesController;
-use App\Http\Controllers\MegaAuthenticationController;
 use App\Models\ListOfTeamNames;
 use App\Models\TeamsCategories;
 use App\Models\TeamsGameSeasons;
@@ -13,6 +12,7 @@ use App\Models\TeamsPosts;
 use App\Models\TeamsReceiptPayments;
 use Hashids\Hashids;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class DashboardController extends Controller
@@ -46,13 +46,10 @@ class DashboardController extends Controller
         ]);
         $hash = new Hashids();
         $filesController = new FilesController();
-        $megaAuth = new MegaAuthenticationController();
         $fileID = $filesController->fileStore($request, 'picture', 'user', 'user');
         $payment = new TeamsReceiptPayments();
-        $payment->accounts_id = $megaAuth->get_account_id('user');
+        $payment->accounts_id = Auth::guard('user')->id();
         $payment->files_id = $fileID;
-//        $payment->game_season_id = $hash->decode($seasons_game_id)[0];
-//        $payment->team_name_id = $hash->decode($team_id)[0];
         $payment->date = $request->input('date');
         $payment->save();
 
@@ -113,7 +110,7 @@ class DashboardController extends Controller
         $valid = $this->validate($request, [
             'team' => 'required',
         ]);
-        $account_id = (new MegaAuthenticationController())->get_account_id('user');
+        $account_id = Auth::guard('user')->id();
 
         $team = new TeamsNames();
         $team->name = $valid['team'];
@@ -129,7 +126,7 @@ class DashboardController extends Controller
         $hash = new Hashids();
         $game_season_id = $hash->decode($id)[0];
         $team_name_id = $hash->decode($name_id)[0];
-        $account_id = (new MegaAuthenticationController())->get_account_id('user');
+        $account_id = Auth::guard('user')->id();
         $post = TeamsPosts::all();
         $list = ListOfTeamNames::where('team_name_id', $team_name_id)
             ->where('game_season_id', $game_season_id)
@@ -170,15 +167,15 @@ class DashboardController extends Controller
             'seasons_game_id' => $id,
             'team_id' => $name_id,
             'list' => $list,
+            'hash' => $hash,
             'post' => $post,
+            "roll" => Auth::guard('user')->id() ? "user" : "admin"
         ]);
     }
 
     public function logout()
     {
-        $megaAuth = new MegaAuthenticationController();
-        $megaAuth->destroy('user');
-
-        return redirect()->route('login');
+        Auth::guard('user')->logout();
+        return redirect('/login');
     }
 }

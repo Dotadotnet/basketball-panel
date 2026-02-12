@@ -38,6 +38,7 @@ return new class() extends Migration
             $table->integer('team_name_id')->nullable();
             $table->integer('game_season_id')->nullable();
             $table->integer('accounts_id')->nullable();
+            $table->integer('photo_coaching_card')->comment('related to Files ID')->nullable();
             $table->integer('photo_case')->comment('related to Files ID')->nullable();
             $table->integer('photo_identity_card')->comment('related to Files ID')->nullable();
             $table->integer('photo_national_card')->comment('related to Files ID')->nullable();

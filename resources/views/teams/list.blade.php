@@ -33,7 +33,7 @@
                                             'team' => $team_name_id
                                             ]) }}">چاپ لیست اسامی</a>
                         </div>
-                    @else
+                    @else 
                         <div class="col-3 alert alert-danger rounded text-center justify-content-center">
                             حداقل پنج بازیکن و یک کادرفنی برای فعال شدن چاپ لازم است
                         </div>

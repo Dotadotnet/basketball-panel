@@ -92,14 +92,14 @@
   font-family: IRANSansX;
   font-style: normal;
   font-weight: 700;
-  src: "/fonts/woff/IRANSansX-Bold.woff" format("woff"), "/fonts/woff2/IRANSansX-Bold.woff2" format("woff2");
+  src: "/fonts/woff/Sans.ttf";
 }
-@font-face {
-  font-family: IRANSansX;
-  font-style: normal;
-  font-weight: 400;
-  src: "/fonts/woff/IRANSansX-Regular.woff" format("woff"), "/fonts/woff2/IRANSansX-Regular.woff2" format("woff2");
+
+ 
+* {
+  font-family: IRANSansX ;
 }
+
 .print-list {
   width: 100%;
   height: 100%;

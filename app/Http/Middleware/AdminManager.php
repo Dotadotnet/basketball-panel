@@ -2,10 +2,10 @@
 
 namespace App\Http\Middleware;
 
-use App\Http\Controllers\MegaAuthenticationController;
 use App\Models\AccountsAdmins;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminManager
 {
@@ -18,13 +18,14 @@ class AdminManager
      */
     public function handle(Request $request, Closure $next)
     {
-        $megaAuth = new MegaAuthenticationController();
-        $id = $megaAuth->get_account_id('admin');
+        $id = Auth::guard('admin')->id();
         $accounts = AccountsAdmins::where('id', '=', $id)->where('manager','=',true)->first();
 
         if(empty($accounts)){
             return abort(403, 'دسترسی فقط برای مدیرکل مجاز است');
         }
+
+
         return $next($request);
     }
 }

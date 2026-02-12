@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\UserAccounts;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\MegaAuthenticationController;
 use App\Models\ListOfTeamNames;
 use App\Models\TeamsAllowedAge;
+use Illuminate\Support\Facades\Auth;
 
 class AgeCheckController extends Controller
 {
@@ -19,10 +19,9 @@ class AgeCheckController extends Controller
     # for review when user want confirm list team
     public function review_group($seasons_game_id, $team_id)
     {
-        $megaAuth = new MegaAuthenticationController();
         $list = ListOfTeamNames::where('game_season_id', $seasons_game_id)
                 ->where('team_name_id', $team_id)
-                ->where('accounts_id', $megaAuth->get_account_id('user'))
+                ->where('accounts_id', Auth::guard('user')->id() )
                 ->with('game_season')
                 ->get();
         if($list){

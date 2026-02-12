@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\UserAccounts;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\MegaAuthenticationController;
 use App\Models\ListOfTeamNames;
 use Hashids\Hashids;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
+use Illuminate\Support\Facades\Auth;
 
 class PrintListController extends Controller
 {
@@ -15,7 +15,7 @@ class PrintListController extends Controller
         $hash = new Hashids();
         $team_name_id = $hash->decode($team)[0];
         $game_season_id = $hash->decode($game_season)[0];
-        $account_id = (new MegaAuthenticationController())->get_account_id('user');
+        $account_id = Auth::guard('user')->id();
         // players
         $i = 0;
         $list = ListOfTeamNames::where('team_name_id', $team_name_id)
