@@ -11,7 +11,8 @@
     <title>@yield('title')</title>
     
     <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.css') }}">
-    <link rel="icon" href="{{ asset('images/Logo.png') }}" type="image/png">
+    <link rel="icon" type="image/x-icon" href="{{ asset('images/logo.ico') }}">
+
     <style>
         @font-face {
             font-weight: normal;

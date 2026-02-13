@@ -2,7 +2,7 @@
      <div style="width: fit-content; margin: 0 auto; display: block;">
          <div style="display: flex; direction: rtl ">
              <div class="">
-                 <img style="width: 150px;" src='https://h3.linklick.ir/ecff529df6a36a4a849b8822726625d5/logo3.png'
+                 <img style="width: 150px;" src={{ asset("/images/logo3.png") }}
                      alt="Logo">
                  {{-- <img style="width: 150px;" src='{{ asset('/images/Logo3.png') }}' alt="Logo"> --}}
              </div>
