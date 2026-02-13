@@ -3,12 +3,17 @@
     داشبورد کاربران @yield('titleSecond')
 @endsection
 @section('styles')
-    <link href="{{ asset('templates/accounts/bootstrap.min.css') }}" rel="stylesheet" crossorigin="anonymous">
-
-    <!-- Favicons -->
+    {{-- <link href="{{ asset('templates/accounts/bootstrap.min.css') }}" rel="stylesheet" crossorigin="anonymous"> --}}
     <meta name="theme-color" content="#712cf9">
-
-
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> @section('title') پنل ادمین @show </title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{{ asset('media/img/custom/image/admin.png') }}" type="image/x-icon">
+    <!-- Custom styles -->
+    <script src="https://kit.fontawesome.com/4fa9804fb1.js" crossorigin="anonymous"></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <style>
         .bd-placeholder-img {
             font-size: 1.125rem;
@@ -61,90 +66,31 @@
             -webkit-overflow-scrolling: touch;
         }
     </style>
-
-
-    <!-- Custom styles for this template -->
-    <link href="{{ asset('templates/accounts/sidebars.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/admin.min.css') }}">
+    {{-- <link href="{{ asset('templates/accounts/sidebars.css') }}" rel="stylesheet"> --}}
 @endsection
 @section('body')
-    <link rel="stylesheet" href="{{ asset('css/polipop.min.css') }}" />
-    <script src="{{ asset('js/polipop.min.js') }}"></script>
-    <script>
-        var polipop = new Polipop('mypolipop', {
-            layout: 'popups',
-            pool: 3,
-            life: 3000,
-        });
-    </script>
-    <main class="d-flex flex-nowrap">
-        <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
-            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                <svg class="bi pe-none me-2" width="40" height="32">
-                    <use xlink:href="#bootstrap" />
-                </svg>
-                <span class="fs-4">حساب کاربری</span>
-            </a>
-            <hr>
-            <ul class="nav nav-pills flex-column mb-auto" dir="rtl">
-                <li>
-                    <a href="{{ route('dashboard.game.seasons') }}" class="nav-link text-white" aria-current="page">
-                        ورود اطلاعات
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('dashboard.payment') }}" class="nav-link text-white">
-                        پرداختی‌ها
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('dashboard.my_club.index') }}" class="nav-link text-white">
-                        آدرس فعالیت باشگاه
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('dashboard.logout') }}" class="nav-link text-white">
-                        خروج
-                    </a>
-                </li>
-            </ul>
+    <div class="layer"></div>
+    <!-- ! Body -->
+    <a class="skip-link sr-only" href="#skip-target">Skip to content</a>
+    <div class="page-flex">
+        <!-- ! Sidebar -->
+        @component('components.user.sidebar')
+        @endcomponent
+        <div class="main-wrapper">
+            <!-- ! Main nav -->
+            @component('components.user.navbar')
+            @endcomponent
+            <!-- ! Main -->
+            <main class="main users chart-page p-2" id="skip-target">
+                @yield('content')
+            </main>
+            <!-- ! Footer -->
+            @component('components.user.footer')
+            @endcomponent
         </div>
-        <div class="b-example-divider b-example-vr"></div>
-        <div style="overflow: auto; width: 100%">
-            @yield('content')
-        </div>
-    </main>
-@endsection
-
-@section('scripts')
+    </div>
+     <script src="{{ asset('js/admin_script.min.js') }}"></script>
+    <script src="{{ asset('js/feather.min.js') }}"></script>
     <script src="{{ asset('templates/accounts/bootstrap.bundle.min.js') }}" crossorigin="anonymous"></script>
-    <script>
-        const messagesRes = @json(session('messages'));
-        const messages = JSON.parse(messagesRes);
-        if (messages) {
-            if (Array.isArray(messages)) {
-                messages.forEach((message) => {
-                    polipop.add(message);
-                })
-            } else {
-                polipop.add(messages);
-            }
-        }
-        document.addEventListener('DOMContentLoaded', function() {
-            const currentUri = window.location.pathname.replace(/\/+$/, '');
-            const links = document.querySelectorAll('ul.nav.nav-pills li a');
-            links.forEach(link => {
-                let linkUri = new URL(link.href).pathname.replace(/\/+$/, '');
-                // اگر مسیر فعلی شامل مسیر لینک بود
-                if (currentUri.includes(linkUri) && linkUri !== '/') {
-                    link.classList.add('active');
-                } else {
-                    link.classList.remove('active');
-                }
-
-            });
-
-        });
-    </script>
-
-    <script src="{{ asset('templates/accounts/sidebars.js') }}"></script>
 @endsection

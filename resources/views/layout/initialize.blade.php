@@ -1,5 +1,5 @@
-<!doctype html>
-<html lang="fa">
+<!DOCTYPE html>
+<html dir="rtl" class="dark" lang="fa">
 
 <head>
     <!-- Required meta tags -->
@@ -9,11 +9,8 @@
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.98.0">
     <title>@yield('title')</title>
-    @livewireStyles
-
     <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.css') }}">
     <link rel="icon" href="{{ asset('images/Logo.png') }}" type="image/png">
-    {{-- <script src="https://kit.fontawesome.com/4fa9804fb1.js" crossorigin="anonymous"></script> --}}
     <style>
         @font-face {
             font-weight: normal;
@@ -26,6 +23,7 @@
             font-family: IRANSansX !important;
         }
     </style>
+    <link rel="stylesheet" href="{{ asset('css/polipop.min.css') }}" />
     @yield('styles')
 </head>
 
@@ -148,10 +146,7 @@
 
             /* دسکتاپ */
         }
-
-       
     </style>
-    <link rel="stylesheet" href="{{ asset('css/polipop.min.css') }}" />
     <script src="{{ asset('js/polipop.min.js') }}"></script>
     <script>
         var polipop = new Polipop('mypolipop', {
@@ -161,11 +156,24 @@
         });
     </script>
     @yield('body')
+    <script>
+        const messagesRes = @json(session('messages'));
+        const messages = JSON.parse(messagesRes);
+        if (messages) {
+            if (Array.isArray(messages)) {
+                messages.forEach((message) => {
+                    polipop.add(message);
+                })
+            } else {
+                polipop.add(messages);
+            }
+        }
+    </script>
+    {{-- @livewireScripts --}}
 
-
-    @livewireScripts
     <script src="{{ asset('bootstrap/js/bootstrap.js') }}" defer></script>
     @yield('scripts')
+
 </body>
 
 </html>

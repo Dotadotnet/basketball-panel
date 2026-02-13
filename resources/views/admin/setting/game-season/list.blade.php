@@ -1,10 +1,10 @@
 @extends('layout.admin_template')
 @section('content')
     <form method="GET">
-        <div class="container p-5">
+        <div class="container px-5 pt-3">
             <!-- Input Search -->
             <div
-                style="display: flex;align-items: end;width: 100%;flex-wrap: wrap;justify-content: space-between ;gap: 10px">
+                style="display: flex;flex-direction: row-reverse; align-items: end;width: 100%;flex-wrap: wrap;justify-content: space-between ;gap: 10px">
 
                 <div style="display: flex;align-items: start;height: 100%;">
                     <a href="{{ route('admin.setting.game_season.create') }}"
@@ -17,7 +17,8 @@
                         <select name="category" style="width: 300px" dir="rtl" class="form-select">
                             <option value="">انتخاب کنید</option>
                             @foreach ($category as $c)
-                                <option {{ $categorySelected ==  $c->id ? 'selected' : '' }} value="{{ $c->id }}">{{ $c->name }}</option>
+                                <option {{ $categorySelected == $c->id ? 'selected' : '' }} value="{{ $c->id }}">
+                                    {{ $c->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -51,22 +52,66 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th></th>
-                            <th></th>
-                            <th scope="col" class="text-center">تاریخ پایان</th>
-                            <th scope="col" class="text-center">تاریخ شروع</th>
-                            <th scope="col" class="text-center">جنسیت</th>
-                            <th scope="col" class="text-center">سن مجاز</th>
-                            <th scope="col" class="text-center">رده</th>
-                            <th scope="col" class="text-center">وضعیت</th>
-                            <th scope="col" class="text-center">تاریخ</th>
-                            <th scope="col" class="text-center">فصل</th>
                             <th scope="col" class="text-center">#</th>
+                            <th scope="col" class="text-center">فصل</th>
+                            <th scope="col" class="text-center">تاریخ</th>
+                            <th scope="col" class="text-center">وضعیت</th>
+                            <th scope="col" class="text-center">رده</th>
+                            <th scope="col" class="text-center">سن مجاز</th>
+                            <th scope="col" class="text-center">جنسیت</th>
+                            <th scope="col" class="text-center">تاریخ شروع</th>
+                            <th scope="col" class="text-center">تاریخ پایان</th>
+                            <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($list as $l)
                             <tr>
+                                <td class="text-center">{{ ++$i }}</td>
+                                <td class="text-center">{{ $l->name }}</td>
+                                <td class="text-center">{{ $l->date }}</td>
+                                <td class="text-center">
+                                    @if ($l->status == 'notStarted')
+                                        {{ 'شروع نشده' }}
+                                    @elseif($l->status == 'done')
+                                        {{ 'تمام شده' }}
+                                    @elseif($l->status == 'doing')
+                                        {{ 'در حال برگزاری' }}
+                                    @endif
+                                </td>
+                                 <td class="text-center">
+                                    @foreach ($category as $c)
+                                        @if ($c->id == $l->category_id)
+                                            {{ $c->name }}
+                                        @endif
+                                    @endforeach
+                                </td>
+                                <td class="text-center">
+                                    @foreach ($allowAge as $age)
+                                        @if ($age->id == $l->teams_allowed_age_id)
+                                            {{ $age->date }}
+                                        @endif
+                                    @endforeach
+                                </td>
+                                  <td class="text-center">
+                                    @if ($l->gender == 'men')
+                                        {{ 'آقا' }}
+                                    @else
+                                        {{ 'خانم' }}
+                                    @endif
+                                </td>
+                                <td class="text-center">{{ $tools->convertGregorianToJalali($l->start_time_at) }}</td>
+                                <td class="text-center">{{ $tools->convertGregorianToJalali($l->finish_time_at) }}</td>
+                                   <td class="text-center">
+                                    <form method="get"
+                                        action="{{ route('admin.setting.game_season.edit', ['id' => Hashids::encode($l->id)]) }}">
+                                        @csrf
+                                        <button type="submit" class="btn btn-xs btn-outline-primary btn-flat show_edit"
+                                            data-toggle="tooltip" title='Edit'>ویرایش
+                                        </button>
+                                    </form>
+                                </td>
                                 <td class="text-center">
                                     <form method="POST"
                                         action="{{ route('admin.setting.game_season.destroy', ['id' => Hashids::encode($l->id)]) }}">
@@ -77,50 +122,6 @@
                                         </button>
                                     </form>
                                 </td>
-                                <td class="text-center">
-                                    <form method="get"
-                                        action="{{ route('admin.setting.game_season.edit', ['id' => Hashids::encode($l->id)]) }}">
-                                        @csrf
-                                        <button type="submit" class="btn btn-xs btn-outline-primary btn-flat show_edit"
-                                            data-toggle="tooltip" title='Edit'>ویرایش
-                                        </button>
-                                    </form>
-                                </td>
-                                <td class="text-center">{{ $tools->convertGregorianToJalali($l->finish_time_at) }}</td>
-                                <td class="text-center">{{ $tools->convertGregorianToJalali($l->start_time_at) }}</td>
-                                <td class="text-center">
-                                    @if ($l->gender == 'men')
-                                        {{ 'آقا' }}
-                                    @else
-                                        {{ 'خانم' }}
-                                    @endif
-                                </td>
-                                <td class="text-center">
-                                    @foreach ($allowAge as $age)
-                                        @if ($age->id == $l->teams_allowed_age_id)
-                                            {{ $age->date }}
-                                        @endif
-                                    @endforeach
-                                </td>
-                                <td class="text-center">
-                                    @foreach ($category as $c)
-                                        @if ($c->id == $l->category_id)
-                                            {{ $c->name }}
-                                        @endif
-                                    @endforeach
-                                </td>
-                                <td class="text-center">
-                                    @if ($l->status == 'notStarted')
-                                        {{ 'شروع نشده' }}
-                                    @elseif($l->status == 'done')
-                                        {{ 'تمام شده' }}
-                                    @elseif($l->status == 'doing')
-                                        {{ 'در حال برگزاری' }}
-                                    @endif
-                                </td>
-                                <td class="text-center">{{ $l->date }}</td>
-                                <td class="text-center">{{ $l->name }}</td>
-                                <td class="text-center">{{ ++$i }}</td>
                             </tr>
                         @endforeach
                     </tbody>

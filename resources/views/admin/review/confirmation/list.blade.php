@@ -31,7 +31,7 @@
             <div class="container p-3">
                 <!-- Input Search -->
                 <div
-                    style="display: flex;align-items: center;width: 100%;flex-wrap: wrap;justify-content: space-between ;gap: 10px">
+                    style="display: flex;align-items: center;width: 100%;flex-wrap: wrap;justify-content: space-between ;gap: 10px;flex-direction: row-reverse">
 
                     <div>
                         <button type="submit" class="btn btn-primary">اعمال</button>
@@ -61,13 +61,13 @@
         <table class="table table-hover">
             <thead class="table-dark">
                 <tr>
-                    <th scope="col" style="text-align: center"></th>
-                    <th scope="col" style="text-align: center">فصل مسابقاتی</th>
-                    <th scope="col" style="text-align: center">تیم</th>
-                    <th scope="col" style="text-align: center">کد ملی</th>
-                    <th scope="col" style="text-align: center">نام خانوادگی</th>
-                    <th scope="col" style="text-align: center">نام</th>
                     <th scope="col" style="text-align: center">#</th>
+                    <th scope="col" style="text-align: center">نام</th>
+                    <th scope="col" style="text-align: center">نام خانوادگی</th>
+                    <th scope="col" style="text-align: center">کد ملی</th>
+                    <th scope="col" style="text-align: center">تیم</th>
+                    <th scope="col" style="text-align: center">فصل مسابقاتی</th>
+                    <th scope="col" style="text-align: center"></th>
                 </tr>
             </thead>
             <tbody>
@@ -78,30 +78,24 @@
                             $class = 'table-success';
                             $title = 'تایید و چاپ شده';
                         } elseif ($l->list__status_approved == 'done' && $l->list__status_print == 'undone') {
-                            $class = 'table-danger';
-                            $title = 'تایید شده ولی \' چــاپ \' نشده';
-                        } elseif (
-                            $l->list__status_approved == 'done' &&
-                            $l->list__status_print == 'undone'
-                        ) {
-                            $class = 'table-light';
+                            $class = 'table-warning';
                             $title = 'تایید شده ولی چاپ نشده';
-                        }else{
-                             $class = '';
-                            $title = 'تعیین نشده';
+                        } else {
+                              $class = 'table-danger';
+                            $title = 'تایید نشده';
                         }
                     @endphp
                     <tr class="{{ $class }}" title="{{ $title }}">
+                        <td style="text-align: center">{{ ++$i }}</td>
+                        <td style="text-align: center">{!! highlightSearch($l->list__name, $search) !!}</td>
+                        <td style="text-align: center"> {!! highlightSearch($l->list__surname, $search) !!} </td>
+                        <td style="text-align: center"> {!! highlightSearch($l->list__national_code, $search) !!} </td>
+                        <td style="text-align: center"> {!! highlightSearch($l->category__name, $search) !!} </td>
+                        <td style="text-align: center">{!! highlightSearch($l->game__name, $search) !!} </td>
                         <td style="text-align: center">
                             <a href="{{ route('admin.review.confirmation.show', ['id' => $hash->encode($l->list__id)]) }}"
                                 class="btn btn-outline-dark">تایید</a>
                         </td>
-                        <td style="text-align: center">{!! highlightSearch($l->game__name, $search) !!} </td>
-                        <td style="text-align: center"> {!! highlightSearch($l->category__name, $search) !!} </td>
-                        <td style="text-align: center"> {!! highlightSearch($l->list__national_code, $search) !!} </td>
-                        <td style="text-align: center"> {!! highlightSearch($l->list__surname, $search) !!} </td>
-                        <td style="text-align: center">{!! highlightSearch($l->list__name, $search) !!}</td>
-                        <td style="text-align: center">{{ ++$i }}</td>
                     </tr>
                 @endforeach
             </tbody>

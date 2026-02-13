@@ -78,29 +78,32 @@
         @endphp
         @if (!$history->isEmpty())
             <div class="container px-5 pt-5 table-div">
-                <h2 style="margin: 10px">فعالیت های قبلی :</h2>
+                <h3 style="margin: 10px 40px 40px 10px">فعالیت های قبلی :</h3>
                 <div style="max-height: 400px ; overflow-y: auto">
                     <table class="table table-striped text-center table-hover">
                         <thead>
                             <tr>
-                                <th scope="col"></th>
-                                <th scope="col">ثبت نهایی</th>
-                                <th scope="col">شماره پیراهن</th>
-                                <th scope="col">سمت</th>
-                                <th scope="col">رده</th>
+                                <th scope="col">#</th>
                                 <th scope="col">تیم</th>
+                                <th scope="col">رده</th>
+                                <th scope="col">سمت</th>
+                                <th scope="col">شماره پیراهن</th>
+                                <th scope="col">ثبت نهایی</th>
+                                <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
-                            @php $i = 0; @endphp
+                            @php $i = count($history); @endphp
 
                             @foreach ($history as $l)
                                 <tr>
-
+                                    <td>{{ $i}}</td>
+                                    <td>{{ $l->team_name }}</td>
+                                    <td>{{ $l->seasons_name }}</td>
                                     <td>
-                                        <a href="{{ route('admin.review.confirmation.show', ['id' => $hash->encode($list->id)]) }}"
-                                            class="btn btn-outline-dark">مشاهده</a>
+                                        {{ $l->post_name }}
                                     </td>
+                                    <td>{{ $l->t_shirt_number }}</td>
                                     <td>
                                         @if ($l->status_user_submit == 'undone')
                                             {{ 'انجام نشده' }}
@@ -108,14 +111,14 @@
                                             {{ 'انجام گردید' }}
                                         @endif
                                     </td>
-                                    <td>{{ $l->t_shirt_number }}</td>
                                     <td>
-                                        {{ $l->post_name }}
+                                        <a href="{{ route('admin.review.confirmation.show', ['id' => $hash->encode($list->id)]) }}"
+                                            class="btn btn-outline-dark">مشاهده</a>
                                     </td>
-                                    <td>{{ $l->seasons_name }}</td>
-                                    <td>{{ $l->team_name }}</td>
                                 </tr>
-                                @php $i++; @endphp
+                                @php
+                                     $i--
+                                @endphp
                             @endforeach
                         </tbody>
                     </table>

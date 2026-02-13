@@ -31,7 +31,7 @@
         <div class="container p-3">
             <!-- Input Search -->
             <div
-                style="display: flex;align-items: center;width: 100%;flex-wrap: wrap;justify-content: space-between ;gap: 10px">
+                style="display: flex;align-items: center;width: 100%;flex-wrap: wrap;justify-content: space-between ;gap: 10px;flex-direction:row-reverse">
 
                 <div>
                     <button type="submit" class="btn btn-primary">اعمال</button>
