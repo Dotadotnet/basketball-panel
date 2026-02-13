@@ -51,13 +51,7 @@
                     کاربران ادمین
                     </a>
                 </li>
-                {{-- <li>
-                    <a href="/panel/comment">
-                        <span class="icon message" aria-hidden="true"></span>
-                        کامنت ها
-                    </a>
-                    <span class="msg-counter comment-show"> {{ count(App\Models\Comment::where(['status' => 0])->get())  }} </span>
-                </li> --}}
+             
             </ul>
 
             <ul class="sidebar-body-menu d-none">

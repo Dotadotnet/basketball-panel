@@ -83,7 +83,7 @@
                 </li> --}}
             </ul>
 
-            {{-- <ul class="sidebar-body-menu d-none">
+            <ul class="sidebar-body-menu d-none">
                 <li>
                     <a href="appearance.html"><span class="icon edit" aria-hidden="true"></span>Appearance</a>
                 </li>
@@ -125,7 +125,7 @@
                 <li>
                     <a href="##"><span class="icon setting" aria-hidden="true"></span>Settings</a>
                 </li>
-            </ul> --}}
+            </ul>
         </div>
     </div>
     <div class="sidebar-footer">
