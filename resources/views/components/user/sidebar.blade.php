@@ -32,6 +32,7 @@
             'teams_game_seasons.name as seasons_name',
         )
         ->orderByDesc('id')
+        ->where('accounts_id', '=', $user->id)
         ->where('photo_case', '!=', null)
         ->get()
         ->first();
