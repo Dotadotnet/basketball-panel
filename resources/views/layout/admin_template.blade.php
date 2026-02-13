@@ -10,7 +10,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> @section('title') پنل ادمین @show </title>
     <!-- Favicon -->
-    <link rel="shortcut icon" href="{{ asset('media/img/custom/image/admin.png') }}" type="image/x-icon">
     <!-- Custom styles -->
     <script src="https://kit.fontawesome.com/4fa9804fb1.js" crossorigin="anonymous"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">

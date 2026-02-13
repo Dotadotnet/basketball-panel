@@ -3,7 +3,7 @@
     $imageUser = asset('images/user_def.jpg');
     $nameUser = $user->name . ' ' . $user->surname;
     $rollUser = 'بازیکن';
-    
+
     $last = \Illuminate\Support\Facades\DB::table('list_of_team_names')
         ->join('teams_posts', 'list_of_team_names.post_id', '=', 'teams_posts.id')
         ->join('teams_names', 'list_of_team_names.team_name_id', '=', 'teams_names.id')
@@ -18,7 +18,9 @@
         ->where('accounts_id', '=', $user->id)
         ->get()
         ->first();
-    $rollUser = $last->post_name;
+    if ($last) {
+        $rollUser = $last->post_name;
+    }
     $last = \Illuminate\Support\Facades\DB::table('list_of_team_names')
         ->join('teams_posts', 'list_of_team_names.post_id', '=', 'teams_posts.id')
         ->join('teams_names', 'list_of_team_names.team_name_id', '=', 'teams_names.id')
@@ -33,8 +35,9 @@
         ->where('photo_case', '!=', null)
         ->get()
         ->first();
-    $imageUser = route('dashboard.image.view', ['id' => Hashids::encode($last->photo_case)]);
-    
+    if ($last) {
+        $imageUser = route('dashboard.image.view', ['id' => Hashids::encode($last->photo_case)]);
+    }
 @endphp
 <aside style="z-index: 102" class="sidebar">
     <div class="sidebar-start">
@@ -79,7 +82,7 @@
                 </li> --}}
             </ul>
 
-            <ul class="sidebar-body-menu d-none">
+            {{-- <ul class="sidebar-body-menu d-none">
                 <li>
                     <a href="appearance.html"><span class="icon edit" aria-hidden="true"></span>Appearance</a>
                 </li>
@@ -117,29 +120,11 @@
                         </li>
                     </ul>
                 </li>
-                @if (Auth::guard('admin')->user()->is_super_admin)
-                    <li>
-                        <a class="show-cat-btn" href="##">
-                            <span class="icon admin-icon" aria-hidden="true"></span>ادمین ها
-                            <span class="category__btn transparent-btn" title="Open list">
-                                <span class="sr-only">Open list</span>
-                                <span class="icon arrow-down" aria-hidden="true"></span>
-                            </span>
-                        </a>
-                        <ul class="cat-sub-menu">
-                            <li>
-                                <a href="/panel/admin/create">اضافه کردن</a>
-                            </li>
-                            <li>
-                                <a href="/panel/admin">حذف و تغییر</a>
-                            </li>
-                        </ul>
-                    </li>
-                @endif
+               
                 <li>
                     <a href="##"><span class="icon setting" aria-hidden="true"></span>Settings</a>
                 </li>
-            </ul>
+            </ul> --}}
         </div>
     </div>
     <div class="sidebar-footer">
