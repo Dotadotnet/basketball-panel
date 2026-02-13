@@ -5,15 +5,8 @@
     <meta charset="UTF-8">
     <title>تأیید ایمیل</title>
     <style>
-        @font-face {
-            font-weight: normal;
-            font-style: normal;
-            font-family: IRANSansX;
-            src: url("{{ asset('/fonts/woff/Sans.ttf') }}") format('truetype');
-        }
-
+       
         * {
-            font-family: IRANSansX , Tahoma !important;
             margin: 0px;
             padding: 0px;
         }

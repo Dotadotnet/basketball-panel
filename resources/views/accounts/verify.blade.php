@@ -13,15 +13,8 @@
             align-items: center;
         }
 
-        @font-face {
-            font-weight: normal;
-            font-style: normal;
-            font-family: IRANSansX;
-            src: url("{{ asset('/fonts/woff/Sans.ttf') }}") format('truetype');
-        }
 
         * {
-            font-family: IRANSansX, Tahoma !important;
             margin: 0px;
             padding: 0px;
         }

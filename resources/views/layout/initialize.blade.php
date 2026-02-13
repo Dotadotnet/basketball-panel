@@ -9,6 +9,7 @@
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.98.0">
     <title>@yield('title')</title>
+    
     <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.css') }}">
     <link rel="icon" href="{{ asset('images/Logo.png') }}" type="image/png">
     <style>
@@ -16,7 +17,7 @@
             font-weight: normal;
             font-style: normal;
             font-family: IRANSansX;
-            src: url("{{ asset('/fonts/woff/Sans.ttf') }}") format('truetype');
+            src: url("https://bbms-tehran.ir/fonts/woff/Sans.ttf") format('truetype');
         }
 
         * {
