@@ -128,21 +128,5 @@
             </ul>
         </div>
     </div>
-    <div class="sidebar-footer">
-        <a href="##" class="sidebar-user">
-            <span class="sidebar-user-img">
-                <picture>
-                    <img src="{{ $imageUser }}" alt="User name">
-                </picture>
-            </span>
-            <div class="sidebar-user-info ">
-                <span style="padding-right: 5px" class="sidebar-user__title pr-3">
-                    {{ $nameUser }}
-                </span>
-                <span style="padding-right: 5px" class="sidebar-user__subtitle pr-3 mt-1 font-parastoo">
-                    {{ $rollUser }}
-                </span>
-            </div>
-        </a>
-    </div>
+ 
 </aside>
