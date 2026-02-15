@@ -87,7 +87,6 @@ class AuthController extends Controller
         session()->flash('messages', json_encode($messagesResult));
 
         if ($messagesResult[0]["type"] == "success") {
-            setcookie('loginData', json_encode($peyload_request),  time() + (10 * 365 * 24 * 60 * 60), "/");
             return redirect("/admin/home");
         } else {
             return redirect()->back();
@@ -170,7 +169,6 @@ class AuthController extends Controller
         session()->flash('messages', json_encode($messagesResult));
 
         if ($messagesResult[0]["type"] == "success") {
-            setcookie('loginData', json_encode($peyload_request),  time() + (10 * 365 * 24 * 60 * 60), "/");
             return redirect("/dashboard");
         } else {
             return redirect()->back();
@@ -282,8 +280,6 @@ class AuthController extends Controller
         }
 
 
-
-        setcookie('registerData', json_encode($peyload_request),  time() + (10 * 365 * 24 * 60 * 60), "/");
 
 
         session()->flash('messages', json_encode($messagesResult));

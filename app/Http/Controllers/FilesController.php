@@ -62,7 +62,6 @@ class FilesController extends Controller
                 $files->file_address = $physicalPath;
                 $files->mime_type = Storage::disk('local')->mimeType($physicalPath);
                 $files->directories_id = $destinationPath->id;
-                $files->size = Storage::disk('local')->size($physicalPath);
                 $files->hash_file = md5(Storage::disk('local')->get($physicalPath));
                 $files->files_label_id = null;
                 $files->accounts_id = Auth::guard('user')->id();
