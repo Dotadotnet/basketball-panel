@@ -2,8 +2,8 @@
 
 @section('content')
     <div class="container px-4 py-5">
-        <div class="row">
-            از منوی سمت چپ ورود اطلاعات نمایید
+        <div dir="rtl" class="w-100 text-right">
+            از منوی سمت راست ورود اطلاعات نمایید
         </div>
     </div>
 @endsection

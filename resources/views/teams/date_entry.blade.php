@@ -61,7 +61,7 @@
                     @error('photo_contract_page_two') <span class="error">{{ $message }}</span> @enderror
                      <div class="input-group mb-3">
                         <input type="file" class="form-control" id="inputGroupFile09" name="photo_coaching_card">
-                        <label class="input-group-text" for="inputGroupFile09">تصویر کارت مربی</label>
+                        <label class="input-group-text" for="inputGroupFile09">تصویر کارت مربیگری</label>
                     </div>
                     @error('photo_coaching_card') <span class="error">{{ $message }}</span> @enderror
                 </div>

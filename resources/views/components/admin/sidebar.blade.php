@@ -3,7 +3,6 @@
     $imageUser = asset('images/user_def.jpg');
     $nameUser = $user->name . ' ' . $user->surname;
     $rollUser = 'ادمین';
-    
     $rollUser = $user->manager ? "مدیر کل" : "ادمین";    
 @endphp
 <aside style="z-index: 102" class="sidebar">
@@ -14,11 +13,10 @@
                 {{-- <span class="icon logo" aria-hidden="true"></span> --}}
                 <img style="width: 40px" src="{{ asset('images/logo4.png') }}" alt="">
                 <div class="logo-text">
-                    <span style="font-size: 11px" class="logo-title mr-5 relative font-parastoo">فدارسیون <span
+                    <span style="font-size: 11px" class="logo-title mr-5 relative font-parastoo">هیأت <span
                             class=" text-xs absolute -top-2 -right-2">بسکتبال</span></span>
                     <span style="font-size: 9px" class="logo-subtitle mr-5 font-parastoo font-bold">پنل ادمین</span>
                 </div>
-
             </a>
             <button class="sidebar-toggle transparent-btn" title="Menu" type="button">
                 <span class="sr-only">Toggle menu</span>
@@ -32,7 +30,7 @@
                 </li>
                  <li>
                     <a href="/admin/review/confirmation"><svg  style="width: 24px;height: 24px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M12 13c2.396 0 4.575.694 6.178 1.671c.8.49 1.484 1.065 1.978 1.69c.486.616.844 1.352.844 2.139c0 .845-.411 1.511-1.003 1.986c-.56.45-1.299.748-2.084.956c-1.578.417-3.684.558-5.913.558s-4.335-.14-5.913-.558c-.785-.208-1.524-.506-2.084-.956C3.41 20.01 3 19.345 3 18.5c0-.787.358-1.523.844-2.139c.494-.625 1.177-1.2 1.978-1.69C7.425 13.694 9.605 13 12 13" class="duoicon-primary-layer"/><path fill="currentColor" d="M12 2c3.849 0 6.255 4.167 4.33 7.5A5 5 0 0 1 12 12c-3.849 0-6.255-4.167-4.33-7.5A5 5 0 0 1 12 2" class="duoicon-secondary-layer" opacity="0.3"/></svg>
-                        برسی ورود اطلاعات
+                        بررسی ورود اطلاعات
                     </a>
                 </li>
                 <li>

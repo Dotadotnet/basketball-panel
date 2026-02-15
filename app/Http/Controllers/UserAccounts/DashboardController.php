@@ -25,6 +25,25 @@ class DashboardController extends Controller
     public function dataEntry($season_game_id, $team_name_id)
     {
         $post = TeamsPosts::all();
+        $user_id = Auth::guard('user')->id();
+        $hash = new Hashids();
+        $list = ListOfTeamNames::where(
+            [
+                ['game_season_id', '=', $hash->decode($season_game_id)[0]],
+                ['accounts_id', '=', $user_id]
+            ]
+        )->first();
+
+        if ($list) {
+            $nameTeam = TeamsNames::where([['id', "=", $list->team_name_id]])->first()->name;
+            return redirect()->back()->with('messages', json_encode([
+                "title" => "شما قبلا در یک تیم ثبت درخواست کردید",
+                "content" => "اول درخواست خود را به تیم $nameTeam لغو کنید",
+                "type" => "error"
+            ]));
+        }
+
+
 
         return view('teams.date_entry', [
             'post' => $post,

@@ -42,7 +42,8 @@
                     <div class="mr-4">
                         <select name="status" style="width: 200px" dir="rtl" class="form-select">
                             <option value="" {{ $status == '' ? 'selected' : '' }}>انتخاب کنید</option>
-                            <option value="awaitingReview" {{ $status == 'awaitingReview' ? 'selected' : '' }}>درحال برسی</option>
+                            <option value="awaitingReview" {{ $status == 'awaitingReview' ? 'selected' : '' }}>درحال برسی
+                            </option>
                             <option value="defective" {{ $status == 'defective' ? 'selected' : '' }}>رد شده</option>
                             <option value="correct" {{ $status == 'correct' ? 'selected' : '' }}>تایید شده</option>
                         </select>
@@ -105,8 +106,8 @@
                             </td>
                             <td>{{ $p->date }}</td>
                             <td><a href="{{ route('admin.image.view', Hashids::encode($p->files_id)) }}">لینک</a></td>
-                            <td>{!! highlightSearch($p->accounts->surname,$search) !!}</td>
-                            <td>{!! highlightSearch($p->accounts->name,$search) !!}</td>
+                            <td>{!! highlightSearch(isset($p->accounts->surname) ? $p->accounts->surname : '', $search) !!}</td>
+                            <td>{!! highlightSearch(isset($p->accounts->name) ? $p->accounts->name : '', $search) !!}</td>
                             <td>{{ ++$i }}</td>
                         </tr>
                     @endforeach
@@ -155,7 +156,7 @@
                     }
                 });
         });
-         document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function() {
             const form = document.querySelector('form[method~=GET]');
             const selects = form.querySelectorAll('select');
             selects.forEach(function(select) {

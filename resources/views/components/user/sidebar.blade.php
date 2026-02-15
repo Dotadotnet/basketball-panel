@@ -48,7 +48,7 @@
                 {{-- <span class="icon logo" aria-hidden="true"></span> --}}
                 <img style="width: 40px" src="{{ asset('images/logo4.png') }}" alt="">
                 <div class="logo-text">
-                    <span style="font-size: 11px" class="logo-title mr-5 relative font-parastoo">فدارسیون <span
+                    <span style="font-size: 11px" class="logo-title mr-5 relative font-parastoo"> هیأت <span
                             class=" text-xs absolute -top-2 -right-2">بسکتبال</span></span>
                     <span style="font-size: 9px" class="logo-subtitle mr-5 font-parastoo font-bold">حساب کاربری</span>
                 </div>

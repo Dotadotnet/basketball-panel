@@ -41,6 +41,7 @@
             </div>
         </div>
     </form>
+    
     <div class="container px-4 py-5">
         <div class="row">
             <div class="col-8"></div>
@@ -69,7 +70,7 @@
                         @foreach ($list as $l)
                             <tr>
                                 <td class="text-center">{{ ++$i }}</td>
-                                <td class="text-center">{{ $l->name }}</td>
+                                <td class="text-center"> <a style="color: blue" href="{{ route('admin.setting.game_season.team',  $l->id) }}">{{ $l->name }}</a></td>
                                 <td class="text-center">{{ $l->date }}</td>
                                 <td class="text-center">
                                     @if ($l->status == 'notStarted')

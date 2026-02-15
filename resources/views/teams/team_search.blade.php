@@ -19,7 +19,7 @@
                             @foreach($teams_names as $t)
                                 <tr>
                                     <td>
-                                        <a href="{{ route('dashboard.team.list', ['id' => $id, 'name_id' => Hashids::encode($t->id)]) }}" class="text-decoration-none">ورود</a>
+                                        <a href="{{ route('dashboard.team.list', ['id' => $id, 'name_id' => Hashids::encode($t->id)]) }}" class="text-decoration-none text-primary">ورود</a>
                                     </td>
                                     <td>{{ $t->name }}</td>
                                     <th scope="row">{{ ++$i }}</th>

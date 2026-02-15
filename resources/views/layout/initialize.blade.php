@@ -18,9 +18,9 @@
             font-weight: normal;
             font-style: normal;
             font-family: IRANSansX;
-            src: url("https://bbms-tehran.ir/fonts/woff/Sans.ttf") format('truetype');
+            src: url("/fonts/woff/Sans.ttf") format('truetype');
         }
-
+          
         * {
             font-family: IRANSansX !important;
         }

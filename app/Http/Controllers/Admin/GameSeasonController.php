@@ -47,6 +47,181 @@ class GameSeasonController extends Controller
         ]);
     }
 
+
+    public function team($id)
+    {
+        $info =  DB::table('teams_game_seasons')
+            ->join('teams_categories', 'teams_game_seasons.category_id', '=', 'teams_categories.id')
+            ->select(
+                'teams_game_seasons.*',
+                'teams_categories.name as category_name'
+            )->where('teams_game_seasons.id', "=", $id)->first();
+        $list = DB::table('list_of_team_names')
+            ->join('teams_game_seasons', 'teams_game_seasons.id', '=', 'list_of_team_names.game_season_id')
+            ->join('teams_posts', 'teams_posts.id', '=', 'list_of_team_names.post_id')
+            ->join('teams_names', 'teams_names.id', '=', 'list_of_team_names.team_name_id')
+            ->join('teams_categories', 'teams_categories.id', '=', 'teams_game_seasons.category_id')
+            ->select(
+                'list_of_team_names.id                        as list__id',
+                'list_of_team_names.created_at                    as list__created_at',
+                'list_of_team_names.updated_at                    as list__updated_at',
+                'list_of_team_names.status_user_submit            as list__status_user_submit',
+                'list_of_team_names.status_user_submit_at         as list__status_user_submit_at',
+                'list_of_team_names.status_print                  as list__status_print',
+                'list_of_team_names.status_print_at               as list__status_print_at',
+                'list_of_team_names.status_approved               as list__status_approved',
+                'list_of_team_names.status_approved_at            as list__status_approved_at',
+                'list_of_team_names.report_defects                as list__report_defects',
+                'list_of_team_names.report_defects_at             as list__report_defects_at',
+                'list_of_team_names.explanation_fixed_defects     as list__explanation_fixed_defects',
+                'list_of_team_names.explanation_fixed_defects_at  as list__explanation_fixed_defects_at',
+                'list_of_team_names.name                          as list__name',
+                'list_of_team_names.surname                       as list__surname',
+                'list_of_team_names.birthdate                     as list__birthdate',
+                'list_of_team_names.national_code                 as list__national_code',
+                'list_of_team_names.identity_code                 as list__identity_code',
+                'list_of_team_names.cellphone                     as list__cellphone',
+                'list_of_team_names.t_shirt_number                as list__t_shirt_number',
+                'list_of_team_names.expire_contract               as list__expire_contract',
+                'list_of_team_names.post_id                       as list__post_id',
+                'teams_posts.name                                 as list__post_name',
+                'list_of_team_names.team_name_id                  as list__team_name_id',
+                'list_of_team_names.game_season_id                as list__game_season_id',
+                'list_of_team_names.accounts_id                   as list__accounts_id',
+                'list_of_team_names.photo_case                    as list__photo_case',
+                'list_of_team_names.photo_identity_card           as list__photo_identity_card',
+                'list_of_team_names.photo_national_card           as list__photo_national_card',
+                'list_of_team_names.photo_end_of_military_service as list__photo_end_of_military_service',
+                'list_of_team_names.photo_enrollment_certificate  as list__photo_enrollment_certificate',
+                'list_of_team_names.photo_sports_insurance        as list__photo_sports_insurance',
+                'list_of_team_names.photo_contract_page_one       as list__photo_contract_page_one',
+                'list_of_team_names.photo_contract_page_two       as list__photo_contract_page_two',
+                'list_of_team_names.photo_coaching_card           as list__photo_coaching_card',
+                'teams_game_seasons.id                            as game__id',
+                'teams_game_seasons.created_at                    as game__created_at',
+                'teams_game_seasons.updated_at                    as game__updated_at',
+                'teams_game_seasons.date                          as game__date',
+                'teams_game_seasons.name                          as game__name',
+                'teams_game_seasons.category_id                   as game__category_id',
+                'teams_game_seasons.teams_allowed_age_id          as game__teams_allowed_age_id',
+                'teams_game_seasons.gender                        as game__gender',
+                'teams_game_seasons.status                        as game__status',
+                'teams_game_seasons.start_time_at                 as game__start_time_at',
+                'teams_game_seasons.finish_time_at                as game__finish_time_at',
+                'teams_names.id                                   as team__id',
+                'teams_names.created_at                           as team__created_at',
+                'teams_names.updated_at                           as team__updated_at',
+                'teams_names.name                                 as team__name',
+                'teams_names.created_by                           as team__created_by',
+                'teams_names.mention_duplicate_id                 as team__mention_duplicate_id',
+                'teams_categories.id                              as category__id',
+                'teams_categories.created_at                      as category__created_at',
+                'teams_categories.updated_at                      as category__updated_at',
+                'teams_categories.name                            as category__name'
+            )->where('game_season_id', "=", $id)->get();
+
+        $teams_id = [];
+        $teams = [];
+
+        foreach ($list as $l) {
+            if (!in_array($l->team__id, $teams_id)) {
+                array_push($teams, ["id" => $l->team__id, "name" => $l->team__name]);
+                array_push($teams_id, $l->team__id);
+            }
+        }
+        return view('admin.setting.game-season.team', [
+            'info' => $info,
+            "teams" => $teams
+        ]);
+    }
+    public function members($id, $team)
+    {
+        $teamInfo = DB::table('teams_names')->where('id', "=", $team)->first();
+        $info =  DB::table('teams_game_seasons')
+            ->join('teams_categories', 'teams_game_seasons.category_id', '=', 'teams_categories.id')
+            ->select(
+                'teams_game_seasons.*',
+                'teams_categories.name as category_name'
+            )->where('teams_game_seasons.id', "=", $id)->first();
+        $list = DB::table('list_of_team_names')
+            ->join('teams_game_seasons', 'teams_game_seasons.id', '=', 'list_of_team_names.game_season_id')
+            ->join('teams_names', 'teams_names.id', '=', 'list_of_team_names.team_name_id')
+            ->join('teams_posts', 'teams_posts.id', '=', 'list_of_team_names.post_id')
+            ->join('teams_categories', 'teams_categories.id', '=', 'teams_game_seasons.category_id')
+            ->select(
+                'list_of_team_names.id                        as list__id',
+                'list_of_team_names.created_at                    as list__created_at',
+                'list_of_team_names.updated_at                    as list__updated_at',
+                'list_of_team_names.status_user_submit            as list__status_user_submit',
+                'list_of_team_names.status_user_submit_at         as list__status_user_submit_at',
+                'list_of_team_names.status_print                  as list__status_print',
+                'list_of_team_names.status_print_at               as list__status_print_at',
+                'list_of_team_names.status_approved               as list__status_approved',
+                'list_of_team_names.status_approved_at            as list__status_approved_at',
+                'list_of_team_names.report_defects                as list__report_defects',
+                'list_of_team_names.report_defects_at             as list__report_defects_at',
+                'list_of_team_names.explanation_fixed_defects     as list__explanation_fixed_defects',
+                'list_of_team_names.explanation_fixed_defects_at  as list__explanation_fixed_defects_at',
+                'list_of_team_names.name                          as list__name',
+                'list_of_team_names.surname                       as list__surname',
+                'list_of_team_names.birthdate                     as list__birthdate',
+                'list_of_team_names.national_code                 as list__national_code',
+                'list_of_team_names.identity_code                 as list__identity_code',
+                'teams_posts.name                                 as list__post_name',
+                'list_of_team_names.cellphone                     as list__cellphone',
+                'list_of_team_names.t_shirt_number                as list__t_shirt_number',
+                'list_of_team_names.expire_contract               as list__expire_contract',
+                'list_of_team_names.post_id                       as list__post_id',
+                'list_of_team_names.team_name_id                  as list__team_name_id',
+                'list_of_team_names.game_season_id                as list__game_season_id',
+                'list_of_team_names.accounts_id                   as list__accounts_id',
+                'list_of_team_names.photo_case                    as list__photo_case',
+                'list_of_team_names.photo_identity_card           as list__photo_identity_card',
+                'list_of_team_names.photo_national_card           as list__photo_national_card',
+                'list_of_team_names.photo_end_of_military_service as list__photo_end_of_military_service',
+                'list_of_team_names.photo_enrollment_certificate  as list__photo_enrollment_certificate',
+                'list_of_team_names.photo_sports_insurance        as list__photo_sports_insurance',
+                'list_of_team_names.photo_contract_page_one       as list__photo_contract_page_one',
+                'list_of_team_names.photo_contract_page_two       as list__photo_contract_page_two',
+                'list_of_team_names.photo_coaching_card           as list__photo_coaching_card',
+                'teams_game_seasons.id                            as game__id',
+                'teams_game_seasons.created_at                    as game__created_at',
+                'teams_game_seasons.updated_at                    as game__updated_at',
+                'teams_game_seasons.date                          as game__date',
+                'teams_game_seasons.name                          as game__name',
+                'teams_game_seasons.category_id                   as game__category_id',
+                'teams_game_seasons.teams_allowed_age_id          as game__teams_allowed_age_id',
+                'teams_game_seasons.gender                        as game__gender',
+                'teams_game_seasons.status                        as game__status',
+                'teams_game_seasons.start_time_at                 as game__start_time_at',
+                'teams_game_seasons.finish_time_at                as game__finish_time_at',
+                'teams_names.id                                   as team__id',
+                'teams_names.created_at                           as team__created_at',
+                'teams_names.updated_at                           as team__updated_at',
+                'teams_names.name                                 as team__name',
+                'teams_names.created_by                           as team__created_by',
+                'teams_names.mention_duplicate_id                 as team__mention_duplicate_id',
+                'teams_categories.id                              as category__id',
+                'teams_categories.created_at                      as category__created_at',
+                'teams_categories.updated_at                      as category__updated_at',
+                'teams_categories.name                            as category__name'
+            )
+            ->where('game_season_id', "=", $id)
+            ->where('team_name_id', "=", $team)
+            ->orderByDesc('list_of_team_names.id')
+            ->paginate(10)
+            ->appends(request()->all());
+        return view('admin.setting.game-season.members', [
+            'list' => $list,
+            'info' => $info,
+            'teamInfo' => $teamInfo,
+            'i' => 0,
+            'class' => null,
+            'title' => null,
+            'hash' => new Hashids()
+        ]);
+    }
+
     public function create()
     {
         $cat = TeamsCategories::all();

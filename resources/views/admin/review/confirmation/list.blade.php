@@ -66,6 +66,8 @@
                     <th scope="col" style="text-align: center">نام خانوادگی</th>
                     <th scope="col" style="text-align: center">کد ملی</th>
                     <th scope="col" style="text-align: center">تیم</th>
+                    <th scope="col" style="text-align: center">رده</th>
+
                     <th scope="col" style="text-align: center">فصل مسابقاتی</th>
                     <th scope="col" style="text-align: center"></th>
                 </tr>
@@ -81,7 +83,7 @@
                             $class = 'table-warning';
                             $title = 'تایید شده ولی چاپ نشده';
                         } else {
-                              $class = 'table-danger';
+                            $class = 'table-danger';
                             $title = 'تایید نشده';
                         }
                     @endphp
@@ -90,6 +92,7 @@
                         <td style="text-align: center">{!! highlightSearch($l->list__name, $search) !!}</td>
                         <td style="text-align: center"> {!! highlightSearch($l->list__surname, $search) !!} </td>
                         <td style="text-align: center"> {!! highlightSearch($l->list__national_code, $search) !!} </td>
+                        <td style="text-align: center"> {!! highlightSearch($l->team__name, $search) !!} </td>
                         <td style="text-align: center"> {!! highlightSearch($l->category__name, $search) !!} </td>
                         <td style="text-align: center">{!! highlightSearch($l->game__name, $search) !!} </td>
                         <td style="text-align: center">

@@ -4,9 +4,7 @@
 
     <div class="container px-4 py-5">
 
-        @component('components.history_of_player')
-        @endcomponent
-        
+   
         <br>
         <div class="row">
             <div class="col-1"></div>
@@ -31,7 +29,7 @@
                                         <td>
                                             @if ($g->start_time_at <= now())
                                                 <a href="{{ route('dashboard.team', Hashids::encode($g->id)) }}"
-                                                    class="text-decoration-none">ورود</a>
+                                                    class="text-decoration-none text-primary">ورود</a>
                                             @else
                                                 تا زمان شروع صبر کنید
                                             @endif

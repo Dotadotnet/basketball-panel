@@ -96,6 +96,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth.admin', 'manage.applic
     Route::group(['prefix' => 'setting'], function () {
         Route::group(['prefix' => 'game-season'], function () {
             Route::get('list', ['uses' => 'Admin\GameSeasonController@list', 'as' => 'admin.setting.game_season.list']);
+            Route::get('team/{id}', ['uses' => 'Admin\GameSeasonController@team', 'as' => 'admin.setting.game_season.team']);
+            Route::get('team/{id}/{team}', ['uses' => 'Admin\GameSeasonController@members', 'as' => 'admin.setting.game_season.members']);
             Route::get('create', ['uses' => 'Admin\GameSeasonController@create', 'as' => 'admin.setting.game_season.create']);
             Route::post('store', ['uses' => 'Admin\GameSeasonController@store', 'as' => 'admin.setting.game_season.store']);
             Route::delete('destroy-{id}', ['uses' => 'Admin\GameSeasonController@destroy', 'as' => 'admin.setting.game_season.destroy']);

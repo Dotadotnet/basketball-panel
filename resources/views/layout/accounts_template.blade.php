@@ -29,7 +29,7 @@
             @component('components.user.navbar')
             @endcomponent
             <!-- ! Main -->
-            <main class="main users chart-page p-2" id="skip-target">
+            <main dir="ltr" class="main users chart-page p-2" id="skip-target">
                 @yield('content')
             </main>
             <!-- ! Footer -->
