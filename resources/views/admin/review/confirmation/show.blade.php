@@ -92,6 +92,14 @@
                         <p class="text-muted">کارت پایان خدمت</p>
                     </a>
                 </div>
+                  <div class="border rounded col-1 d-inline-block">
+                    <a class="text-decoration-none"
+                        href="@if (!is_null($list->photo_coaching_card)) {{ route('admin.image.view', ['id' => $hash->encode($list->photo_coaching_card)]) }} @else # @endif"><img
+                            src="@if (!is_null($list->photo_coaching_card)) {{ route('admin.image.view', ['id' => $hash->encode($list->photo_coaching_card)]) }} @else # @endif"
+                            alt="کارت مربیگری" title="کارت مربیگری" width="100" height="100">
+                        <p class="text-muted">کارت مربیگری</p>
+                    </a>
+                </div>
                 <div class="border rounded col-1 d-inline-block">
                     <a class="text-decoration-none"
                         href="@if (!is_null($list->photo_enrollment_certificate)) {{ route('admin.image.view', ['id' => $hash->encode($list->photo_enrollment_certificate)]) }} @else # @endif"><img
@@ -124,14 +132,7 @@
                         <p class="text-muted">صفحه دوم قرارداد</p>
                     </a>
                 </div>
-                <div class="border rounded col-1 d-inline-block">
-                    <a class="text-decoration-none"
-                        href="@if (!is_null($list->photo_coaching_card)) {{ route('admin.image.view', ['id' => $hash->encode($list->photo_coaching_card)]) }} @else # @endif"><img
-                            src="@if (!is_null($list->photo_coaching_card)) {{ route('admin.image.view', ['id' => $hash->encode($list->photo_coaching_card)]) }} @else # @endif"
-                            alt="کارت مربیگری" title="کارت مربیگری" width="100" height="100">
-                        <p class="text-muted">کارت مربیگری</p>
-                    </a>
-                </div>
+              
             </div>
         </div>
         <div class="row mt-1">
