@@ -57,7 +57,7 @@
                 </p>
             </div>
         </div>
-    
+
         <div class="row mt-1">
             <div class="col-12 mt-3 mb-5">
                 <div class="border rounded col-1 d-inline-block">
@@ -92,7 +92,7 @@
                         <p class="text-muted">کارت پایان خدمت</p>
                     </a>
                 </div>
-                  <div class="border rounded col-1 d-inline-block">
+                <div class="border rounded col-1 d-inline-block">
                     <a class="text-decoration-none"
                         href="@if (!is_null($list->photo_coaching_card)) {{ route('admin.image.view', ['id' => $hash->encode($list->photo_coaching_card)]) }} @else # @endif"><img
                             src="@if (!is_null($list->photo_coaching_card)) {{ route('admin.image.view', ['id' => $hash->encode($list->photo_coaching_card)]) }} @else # @endif"
@@ -132,14 +132,14 @@
                         <p class="text-muted">صفحه دوم قرارداد</p>
                     </a>
                 </div>
-              
+
             </div>
         </div>
         <div class="row mt-1">
             @if (Session::has('message'))
                 <p class="alert alert-info text-center">{!! Session::get('message') !!}</p>
             @endif
-            <div class="col-12">
+            <div class="d-flex " style="border:none">
                 <a class="text-decoration-none btn btn-outline-dark p-2"
                     href="{{ route('admin.review.confirmation.precheck', ['id' => $hash->encode($list->id)]) }}">بـررسـی
                     اولـیـه</a>
@@ -153,6 +153,14 @@
                 <a class="text-decoration-none btn btn-primary p-2 me-5"
                     href="{{ route('admin.team.list.edit', ['id' => $list->game_season_id, 'name_id' => $list->team_name_id, 'list_id' => Hashids::encode($list->id)]) }}">بازکردن
                     ویرایش کاربر</a>
+                <form class="editable" method="POST" action="{{"/admin/editable/" . $list->id}}">
+                    @csrf
+                    <select name="editable" style="width: 200px" dir="rtl" class="form-select mx-3">
+                        <option value="none" {{ $list->editable == '' ? 'selected' : '' }}>پیش فرض</option>
+                        <option value="true" {{ $list->editable == "true" ? 'selected' : '' }}>قابل تغییر</option>
+                        <option value="false" {{ $list->editable == 'false' ? 'selected' : '' }}>غیر قابل تغییر</option>
+                    </select>
+                </form>
             </div>
 
             <!-- Modal -->
@@ -195,7 +203,7 @@
                 </div>
             </div>
         </div>
-            @php
+        @php
             $user_id = isset($list->accounts_id)
                 ? $list->accounts_id
                 : \Illuminate\Support\Facades\Auth::guard('user')->id();
@@ -234,7 +242,7 @@
 
                             @foreach ($history as $l)
                                 <tr>
-                                    <td>{{ $i}}</td>
+                                    <td>{{ $i }}</td>
                                     <td>{{ $l->team_name }}</td>
                                     <td>{{ $l->seasons_name }}</td>
                                     <td>
@@ -254,7 +262,7 @@
                                     </td>
                                 </tr>
                                 @php
-                                     $i--
+                                    $i--;
                                 @endphp
                             @endforeach
                         </tbody>
@@ -264,4 +272,16 @@
         @endif
     </div>
     <br>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('form.editable');
+            const selects = form.querySelectorAll('select');
+            selects.forEach(function(select) {
+                select.addEventListener('change', function() {
+                    form.submit();
+                });
+            });
+        });
+    </script>
 @endsection

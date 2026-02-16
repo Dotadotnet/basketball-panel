@@ -74,6 +74,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth.admin', 'manage.applic
     Route::post('season-{seasons_game_id}/team-{team_id}/list-{list_id}/edit', ['uses' => 'UserAccounts\ListOfTeamNamesController@edit', 'as' => 'admin.list.edit']); //8
 
 
+    Route::post('/editable/{id}', ['uses' => 'Admin\AdminController@editable', 'as' => 'admin.home']);
     Route::get('home', ['uses' => 'Admin\AdminController@home', 'as' => 'admin.home']);
     Route::get('guide', ['uses' => 'GuideController@list', 'as' => 'admin.guide']);
     Route::get('image-{id}', ['uses' => 'ImagesController@view', 'as' => 'admin.image.view']);

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\UserAccounts;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\FilesController;
 use App\Models\ListOfTeamNames;
+use App\Models\TeamsNames;
 use App\Rules\AuthorizedFilesConfigurationRule;
 use App\Rules\CellphoneRule;
 use App\Rules\ExpireContractRule;
@@ -59,6 +60,23 @@ class ListOfTeamNamesController extends Controller
             'photo_contract_page_two' => new AuthorizedFilesConfigurationRule(),
             'photo_coaching_card' => new AuthorizedFilesConfigurationRule()
         ]);
+
+        
+         $first = ListOfTeamNames::where(
+            [
+                ['game_season_id', '=', $season_game_id],
+                ['national_code', '=', $request->input('nationalCode')]
+            ]
+        )->first();
+        if ($first) {
+            $nameTeam = TeamsNames::where([['id', "=", $first->team_name_id]])->first()->name;
+            return redirect()->back()->with('messages', json_encode([
+                "title" => "شما قبلا در یک تیم ثبت درخواست کردید",
+                "content" => "اول درخواست خود را به تیم $nameTeam لغو کنید",
+                "type" => "error"
+            ]));
+        }
+
 
         $list->name = $request->input('name');
         $list->surname = $request->input('surname');

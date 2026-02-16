@@ -73,13 +73,21 @@
                                         @endif
                                     </td>
                                     <td>
-                                        @if($l->status_approved == 'undone')
+                                        @if($l->editable == 'none')
+                                          @if($l->status_approved == 'undone')
                                             <a href="{{ route('dashboard.team.list.edit', ['id' => $game_season_id, 'name_id' => $team_name_id, 'list_id' => Hashids::encode($l->id)]) }}"
                                                class="text-decoration-none btn btn-xs btn-outline-primary">ویرایش</a>
                                         @else
                                             <a title="{{ "در تاریخ {$l->status_approved_at} توسط هیات تایید شده" }}"
                                                class="btn btn-danger">غیرقابل ویرایش</a>
                                         @endif
+                                        @elseif($l->editable == 'false')
+                                            <a title="توسط هیات غیرقابل ویرایش شده" class="btn btn-danger">غیرقابل ویرایش</a>
+                                        @elseif($l->editable == 'true')
+                                            <a href="{{ route('dashboard.team.list.edit', ['id' => $game_season_id, 'name_id' => $team_name_id, 'list_id' => Hashids::encode($l->id)]) }}"
+                                               class="text-decoration-none btn btn-xs btn-outline-primary">ویرایش</a>
+                                        @endif
+                                       
                                     </td>
                                     <td>
                                         @if($l->status_user_submit == 'undone')
