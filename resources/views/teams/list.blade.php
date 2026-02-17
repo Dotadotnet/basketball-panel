@@ -57,7 +57,7 @@
                             @foreach($list as $l)
                                 <tr>
                                     <td>
-                                        @if($l->status_user_submit == 'undone')
+                                        @if($l->status_user_submit == 'undone' || $l->editable == 'true')
                                             <form method="POST" action="{{ route('dashboard.list.delete', [
                                             'seasons_game_id' => $game_season_id,
                                             'team_id' => $team_name_id,
