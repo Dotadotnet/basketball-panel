@@ -47,24 +47,6 @@
 @section('scriptAuth')
     <script>
         const btnSubmit = document.querySelector("form button[type~=submit]");
-
-        function getCookie(name) {
-            const value = `; ${document.cookie}`;
-            const parts = value.split(`; ${name}=`);
-            if (parts.length === 2) return parts.pop().split(';').shift();
-            return null;
-        }
-        const registerData = decodeURIComponent(getCookie('loginData'));
-
-        if (registerData) {
-            const data = JSON.parse(registerData); // decode JSON
-
-            const input = document.querySelector(`input[name="email"]`);
-            input.value = data["email"];
-        }
-
-
-
         const checkbox = document.getElementById('toggle');
         const item = document.getElementById('hidden-item');
         const labelText = document.querySelector('#label-text');

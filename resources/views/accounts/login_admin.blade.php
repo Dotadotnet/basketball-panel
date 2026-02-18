@@ -25,23 +25,4 @@
         </div>
     </form>
 @endsection
-@section('scriptAuth')
-    <script>
-        function getCookie(name) {
-            const value = `; ${document.cookie}`;
-            const parts = value.split(`; ${name}=`);
-            if (parts.length === 2) return parts.pop().split(';').shift();
-            return null;
-        }
-        const registerData = decodeURIComponent(getCookie('loginData'));
-        console.log(registerData);
-        
-        if (registerData) {
-            const data = JSON.parse(registerData); // decode JSON
-            for (const key in data) {
-                const input = document.querySelector(`input[name="${key}"]`);
-                if (input) input.value = data[key];
-            }
-        }
-    </script>
-@endsection
+
