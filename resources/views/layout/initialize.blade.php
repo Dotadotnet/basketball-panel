@@ -24,6 +24,9 @@
         * {
             font-family: IRANSansX !important;
         }
+          select {
+            padding-right: 35px !important
+        }
     </style>
     <link rel="stylesheet" href="{{ asset('css/polipop.min.css') }}" />
     @yield('styles')
