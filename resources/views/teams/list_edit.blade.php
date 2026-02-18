@@ -13,6 +13,7 @@
             $prefix = $roll == 'admin' ? 'admin' : 'dashboard' ;
         @endphp
         <form
+        dir="ltr"
             action="{{ route("$prefix.list.edit", ['seasons_game_id' => $seasons_game_id, 'team_id' => $team_id, 'list_id' => Hashids::encode($list->id)]) }}"
             method="post" enctype="multipart/form-data" class="input-group">
             @csrf
@@ -209,10 +210,10 @@
                             <span class="error">{{ $message }}</span>
                         @enderror
                         <div class="input-group mb-3 mt-3">
-                            <select class="form-control" id="exampleFormControlSelect1" aria-label="Default"
+                            <select dir="rtl" class="form-control" id="exampleFormControlSelect1" aria-label="Default"
                                 aria-describedby="inputGroup-sizing-default" name="post">
                                 @foreach ($post as $p)
-                                    <option style="text-align: center" value="{{ Hashids::encode($p->id) }}"
+                                    <option style="text-align: center !important" value="{{ Hashids::encode($p->id) }}"
                                         @if ($p->id == $list->post_id) selected @endif>{{ $p->name }}</option>
                                 @endforeach
                             </select>
