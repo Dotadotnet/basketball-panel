@@ -5,7 +5,7 @@
 
 .print-card .category {
   position: relative;
-  font-size: 0.40cm;
+  font-size: 0.35cm; 
   left: 6cm;
   top: 0.6cm;
   width: 4cm;
@@ -31,8 +31,8 @@
 
 .print-card .team {
   position: relative;
-  font-size: 0.35cm;
-  top: 1.65cm;
+  font-size: 0.30cm;
+  top: 1.5cm;
   left: 5.5cm;
   height: 0.5cm;
   width: 5cm;
@@ -41,7 +41,7 @@
 .print-card .name {
   position: relative;
   top: 1.85cm;
-  font-size: 0.35cm;
+  font-size: 0.30cm;
   left: 5.5cm;
   height: 0.5cm;
   width: 5cm;
@@ -51,14 +51,14 @@
   position: relative;
   top: 2.02cm;
   left: 5.5cm;
-  font-size: 0.35cm;
+  font-size: 0.30cm;
   height: 0.5cm;
   width: 5cm;
 }
 
 .print-card .post {
   position: relative;
-  font-size: 0.35cm;
+  font-size: 0.30cm;
   top: 2.15cm;
   left: 5.5cm;
   height: 0.5cm;
