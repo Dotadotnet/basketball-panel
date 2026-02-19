@@ -8,18 +8,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Print</title>
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-    <style>
-        @font-face {
-            font-weight: normal;
-            font-style: normal;
-            font-family: IRANSansX;
-            src: url("/fonts/woff/Sans.ttf") format('truetype');
-        }
-
-        * {
-            font-family: IRANSansX !important;
-        }
-    </style>
 </head>
 
 <body>
