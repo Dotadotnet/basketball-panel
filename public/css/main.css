@@ -2,16 +2,13 @@
   position: absolute;
   direction: rtl;
 }
-
 .print-card .category {
   position: relative;
-  font-size: 0.35cm; 
   left: 6cm;
   top: 0.6cm;
   width: 4cm;
   height: 0.5cm;
 }
-
 .print-card .year {
   position: relative;
   left: 6cm;
@@ -19,7 +16,6 @@
   width: 4cm;
   height: 0.5cm;
 }
-
 .print-card img.photocase {
   position: relative;
   left: 5.8cm;
@@ -28,43 +24,34 @@
   height: 3cm;
   border-radius: 50%;
 }
-
 .print-card .team {
   position: relative;
-  font-size: 0.30cm;
-  top: 1.5cm;
+  top: 1.65cm;
   left: 5.5cm;
   height: 0.5cm;
   width: 5cm;
 }
-
 .print-card .name {
   position: relative;
   top: 1.85cm;
-  font-size: 0.30cm;
   left: 5.5cm;
   height: 0.5cm;
   width: 5cm;
 }
-
 .print-card .surname {
   position: relative;
   top: 2.02cm;
   left: 5.5cm;
-  font-size: 0.30cm;
   height: 0.5cm;
   width: 5cm;
 }
-
 .print-card .post {
   position: relative;
-  font-size: 0.30cm;
   top: 2.15cm;
   left: 5.5cm;
   height: 0.5cm;
   width: 5cm;
 }
-
 .print-card .birthdate {
   position: relative;
   top: 2.4cm;
@@ -72,7 +59,6 @@
   height: 0.5cm;
   width: 5cm;
 }
-
 .print-card .code {
   position: relative;
   top: 2.5cm;
@@ -80,7 +66,6 @@
   height: 0.5cm;
   width: 5cm;
 }
-
 .print-card .tShirt {
   position: relative;
   top: 2.6cm;
@@ -89,16 +74,13 @@
   width: 5cm;
   font-size: 44px;
 }
-
 .print-card .tShirt img {
   width: 2.5cm;
   height: 2.5cm;
 }
-
 .print-card .tShirt p {
   font-size: 16px;
 }
-
 .print-card .tShirt span {
   position: absolute;
   left: 3.2cm;
@@ -112,35 +94,30 @@
   font-weight: 700;
   src: "/fonts/woff/IRANSansX-Bold.woff" format("woff"), "/fonts/woff2/IRANSansX-Bold.woff2" format("woff2");
 }
-
 @font-face {
   font-family: IRANSansX;
   font-style: normal;
   font-weight: 400;
   src: "/fonts/woff/IRANSansX-Regular.woff" format("woff"), "/fonts/woff2/IRANSansX-Regular.woff2" format("woff2");
 }
-
 .print-list {
   width: 100%;
   height: 100%;
   position: absolute;
   font-family: IRANSansX, sans-serif;
 }
-
 .print-list .header {
   position: relative;
   width: 28cm;
   margin: 0 auto;
   height: 2.1cm;
 }
-
 .print-list .header img {
   position: absolute;
   right: 0;
   width: 2.5cm;
   height: 2.5cm;
 }
-
 .print-list .header .title {
   position: relative;
   padding-top: 0.2cm;
@@ -148,30 +125,25 @@
   text-align: center;
   margin-bottom: 0.5cm;
 }
-
 .print-list .header .description {
   margin: 0 auto;
   text-align: center;
 }
-
 .print-list .header .description strong {
   position: relative;
   font-weight: bold;
 }
-
 .print-list table {
   position: relative;
   width: 28cm;
   margin: 0 auto;
   margin-top: 0.5cm;
 }
-
 .print-list table tr {
   position: relative;
   text-align: center;
   border: 2px solid;
 }
-
 .print-list table tr th {
   border-radius: 5px;
   border: 2px solid;
@@ -181,7 +153,6 @@
   margin-left: 1cm;
   margin-right: 1cm;
 }
-
 .print-list table tr td {
   border: 2px solid;
   padding-right: 0.2cm;
@@ -190,7 +161,6 @@
   margin-left: 1cm;
   margin-right: 1cm;
 }
-
 .print-list .footer {
   position: absolute;
   width: 28cm;
@@ -200,43 +170,35 @@
   right: 0;
   margin: auto;
 }
-
 .print-list .footer .row-half {
   position: relative;
   height: 0.5cm;
 }
-
 .print-list .footer .row {
   position: relative;
   height: 1cm;
   display: flex;
 }
-
 .print-list .footer .row .phone-number {
   position: absolute;
   right: 0;
 }
-
 .print-list .footer .row .fax {
   position: relative;
   margin: 0 auto;
 }
-
 .print-list .footer .row .name-owner-team {
   position: absolute;
   left: 6cm;
 }
-
 .print-list .footer .row .email {
   position: absolute;
   right: 0;
 }
-
 .print-list .footer .row .signature {
   position: relative;
   left: 2cm;
 }
-
 .print-list .footer .row .signature.split {
   left: 6.5cm;
 }
@@ -245,7 +207,6 @@
   .pagebreak {
     /* page-break-after works, as well */
   }
-
   .pagebreak .pagebreak {
     clear: both;
     page-break-before: always;
