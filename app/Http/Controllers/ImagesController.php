@@ -16,7 +16,7 @@ class ImagesController extends Controller
         $hash = new Hashids();
         $files = new Files();
         $files = $files->find($hash->decode($id)[0]);
-        $f = Storage::exists($files->file_address);
+        $f = Storage::exists("user/" . $files->file_address);
         if ($f) {
             $f = Storage::get("user/" . $files->file_address);
         } else {
