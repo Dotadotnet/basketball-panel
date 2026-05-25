@@ -17,8 +17,11 @@ class ImagesController extends Controller
         $files = new Files();
         $files = $files->find($hash->decode($id)[0]);
         $f = Storage::disk('parspack')->get($files->file_address);
+        $isvalid = Storage::disk('parspack')->exists($files->file_address);
+        dd($files , $f , $isvalid);
         $response = Response::make($f, 200);
         $response->header('Content-Type', $files->mime_type);
+
         return $response;
     }
      
