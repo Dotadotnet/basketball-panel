@@ -43,7 +43,7 @@ return [
             'secret' => env('SECRET_KEY'),
             'region' => env('DEFAULT_REGION'),
             'bucket' => env('BUCKET_NAME'),
-            'use_path_style_endpoint' => true,
+            'use_path_style_endpoint' => env('USE_PATH_STYLE_ENDPOINT', false),
         ],
         'public' => [
             'driver' => 'local',
