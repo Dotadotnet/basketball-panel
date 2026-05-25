@@ -105,7 +105,7 @@
                                 @endif
                             </td>
                             <td>{{ $p->date }}</td>
-                            <td><a href="{{ route('admin.image.view', Hashids::encode($p->files_id)) }}">لینک</a></td>
+                            <td><a style="color: blue" href="{{ route('admin.image.view', Hashids::encode($p->files_id)) }}">لینک</a></td>
                             <td>{!! highlightSearch(isset($p->accounts->surname) ? $p->accounts->surname : '', $search) !!}</td>
                             <td>{!! highlightSearch(isset($p->accounts->name) ? $p->accounts->name : '', $search) !!}</td>
                             <td>{{ ++$i }}</td>

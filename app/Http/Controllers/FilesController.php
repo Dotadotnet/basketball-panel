@@ -23,7 +23,6 @@ class FilesController extends Controller
     {
         return view('upload');
     }
-    
 
     public function directories_exists()
     {
@@ -47,6 +46,8 @@ class FilesController extends Controller
      */
     public function fileStore(Request $request, $input_name, $directory_name, $account_type)
     {
+        set_time_limit(0);
+
         $this->validate($request, [
             $input_name => [new AuthorizedFilesConfigurationRule()],
         ]);
@@ -55,17 +56,19 @@ class FilesController extends Controller
             $fileInput = $request->file($input_name);
             $destinationPath = $this->directory_name_get($directory_name);
             if ($fileInput != null) {
-                $physicalPath = Storage::disk('local')->put(path: $destinationPath->slug,contents: $fileInput);
+                $physicalPath = Storage::disk('parspack')->put(path: '', contents: $fileInput);
                 $files = new Files();
                 $files->name = $fileInput->getClientOriginalName();
                 $files->file_name = basename($physicalPath);
                 $files->file_address = $physicalPath;
-                $files->mime_type = Storage::disk('local')->mimeType($physicalPath);
+                $files->mime_type = Storage::disk('parspack')->mimeType($physicalPath);
                 $files->directories_id = $destinationPath->id;
-                $files->hash_file = md5(Storage::disk('local')->get($physicalPath));
+                $files->size = Storage::disk('parspack')->size($physicalPath);
+                $files->hash_file = md5(Storage::disk('parspack')->get($physicalPath));
                 $files->files_label_id = null;
-                $files->accounts_id = Auth::guard('user')->id();
+                $files->accounts_id = Auth::guard("admin")->check() ? Auth::guard("admin")->id() : Auth::guard("user")->id();
                 $files->save();
+
                 return $files['id'];
             }
 
@@ -92,14 +95,14 @@ class FilesController extends Controller
 
         // Check physical directory if file not exists in database
         // this code maybe complex to reading, but it's simple
-        foreach (Storage::disk('local')->allDirectories() as $directory) {
-            foreach (Storage::disk('local')->allFiles($directory) as $filePath) {
+        foreach (Storage::disk('parspack')->allDirectories() as $directory) {
+            foreach (Storage::disk('parspack')->allFiles($directory) as $filePath) {
                 foreach (Files::all() as $files) {
                     if ($files->file_address == $filePath) {
                         goto jumper;
                     }
                 }
-                Storage::disk('local')->delete($filePath);
+                Storage::disk('parspack')->delete($filePath);
                 jumper:
             }
         }
