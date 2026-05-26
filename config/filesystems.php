@@ -42,6 +42,8 @@ return [
             'key' => env('ACCESS_KEY'),
             'secret' => env('SECRET_KEY'),
             'region' => env('DEFAULT_REGION'),
+            'throw' => true,
+            'verify' => false,
             'bucket' => env('BUCKET_NAME'),
             'use_path_style_endpoint' => env('USE_PATH_STYLE_ENDPOINT', false),
         ],

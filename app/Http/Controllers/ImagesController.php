@@ -19,7 +19,8 @@ class ImagesController extends Controller
         $f = Storage::exists("user/" . $files->file_address);
         $f = Storage::disk('parspack')->get($files->file_address);
         $isexite = Storage::disk('parspack')->get($files->file_address);
-        dd($f,$isexite,$files->file_address);
+
+        dd($f,$isexite,$files->file_address,config('filesystems.disks.parspack'));
         if ($f) {
             $f = Storage::get("user/" . $files->file_address);
         } else {
