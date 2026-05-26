@@ -63,7 +63,6 @@ class FilesController extends Controller
                 $files->file_address = $physicalPath;
                 $files->mime_type = Storage::disk('parspack')->mimeType($physicalPath);
                 $files->directories_id = $destinationPath->id;
-                $files->size = Storage::disk('parspack')->size($physicalPath);
                 $files->hash_file = md5(Storage::disk('parspack')->get($physicalPath));
                 $files->files_label_id = null;
                 $files->accounts_id = Auth::guard("admin")->check() ? Auth::guard("admin")->id() : Auth::guard("user")->id();
