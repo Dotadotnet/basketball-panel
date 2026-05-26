@@ -16,7 +16,6 @@ class ImagesController extends Controller
         $hash = new Hashids();
         $files = new Files();
         $files = $files->find($hash->decode($id)[0]);
-        dd(config('filesystems.disks.parspack'));
         $f = Storage::exists("user/" . $files->file_address);
         $f = Storage::disk('parspack')->get($files->file_address);
         $isexite = Storage::disk('parspack')->get($files->file_address);
