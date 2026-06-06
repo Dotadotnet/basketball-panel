@@ -44,6 +44,8 @@ return [
             'region' => env('DEFAULT_REGION'),
             'bucket' => env('BUCKET_NAME'),
             'use_path_style_endpoint' => env('USE_PATH_STYLE_ENDPOINT', false),
+            'throw' => true,
+
         ],
         'public' => [
             'driver' => 'local',
@@ -61,7 +63,7 @@ return [
             'url' => env('AWS_URL'),
             'endpoint' => env('AWS_ENDPOINT'),
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
-            'throw' => false,
+            'throw' => true,
         ],
 
     ],
