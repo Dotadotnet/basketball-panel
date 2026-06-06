@@ -16,8 +16,7 @@ class ImagesController extends Controller
         $hash = new Hashids();
         $files = new Files();
         $files = $files->find($hash->decode($id)[0]);
-        dd( $files);
-        $f = Storage::disk('parspack')->get(str_replace("user/","",$files->file_address));
+        $f = Storage::disk('parspack')->get($files->file_address);
         $response = Response::make($f, 200);
         $response->header('Content-Type', $files->mime_type);
         return $response;
