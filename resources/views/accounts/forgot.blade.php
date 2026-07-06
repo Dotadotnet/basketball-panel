@@ -50,10 +50,9 @@
         const checkbox = document.getElementById('toggle');
         const item = document.getElementById('hidden-item');
         const labelText = document.querySelector('#label-text');
+        const inputPass = document.querySelector("input[name~=password]")
 
- 
 
-      
         checkbox.addEventListener('change', () => {
             if (checkbox.checked) {
                 item.style.display = 'block';
@@ -65,5 +64,10 @@
                 btnSubmit.textContent = 'دریافت رمز';
             }
         });
+
+
+        setTimeout(() => {
+            inputPass.value = "";
+        }, 1000);
     </script>
 @endsection
