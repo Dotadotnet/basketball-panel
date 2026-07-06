@@ -11,7 +11,7 @@
     <title> @section('title') پنل ادمین @show </title>
     <!-- Favicon -->
     <!-- Custom styles -->
-   
+
     <script src="https://kit.fontawesome.com/4fa9804fb1.js" crossorigin="anonymous"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{ asset('css/admin.min.css') }}">
@@ -38,7 +38,9 @@
             @endcomponent
         </div>
     </div>
-     <script src="{{ asset('js/admin_script.min.js') }}"></script>
+    <script src="{{ asset('js/admin_script.min.js') }}"></script>
     <script src="{{ asset('js/feather.min.js') }}"></script>
     <script src="{{ asset('templates/accounts/bootstrap.bundle.min.js') }}" crossorigin="anonymous"></script>
+   
+    @yield('script')
 @endsection

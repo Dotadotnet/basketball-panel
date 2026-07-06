@@ -51,13 +51,9 @@
         const item = document.getElementById('hidden-item');
         const labelText = document.querySelector('#label-text');
 
-        const inputPass = document.querySelector(`input[name="password"]`);
  
 
-        setTimeout(() => {
-            inputPass.value = "";
-        }, 1000);
-
+      
         checkbox.addEventListener('change', () => {
             if (checkbox.checked) {
                 item.style.display = 'block';

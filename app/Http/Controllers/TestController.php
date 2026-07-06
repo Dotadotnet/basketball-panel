@@ -10,6 +10,7 @@ use App\Models\KeepPasswords;
 use App\Models\ListOfTeamNames;
 use App\Utils\SendMail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 
 class TestController extends Controller
@@ -18,13 +19,20 @@ class TestController extends Controller
     {
         set_time_limit(0);
         ini_set('max_execution_time', 0);
-        $users = Accounts::all();
-        foreach ($users as $user) {
-            $code = "A" . Helper::generateFiveDigitCodeWithZero();
-            $password = trim($user->password);
-            if (str_contains($password, '$2y$10$') && strlen($password) > 30) {
-                Accounts::where('id', $user->id)->update(["password" => $code]);
-            }
-        }
+        $res = Http::withHeaders([
+            'api-key' => env('MAIL_API_KEY'),
+            'Content-Type' => 'application/json',
+        ])->post('https://api.brevo.com/v3/smtp/email', [
+            'sender' => [
+                'email' => "info" . '@' . "bbms-tehran.ir",
+                'name' => "فدراسیون"
+            ],
+            'to' => [
+                ['email' => "aminiamiraliamini1400@gmail.com"]
+            ],
+            'subject' => "ADsfad",
+            'htmlContent' => "ADFasfafdsda",
+        ]);
+        return response($res);
     }
 }

@@ -29,6 +29,7 @@ Route::get('/test-login', function () {
 Route::get('/', function () {
     return redirect()->route('login');
 })->name('home');
+
 Route::get('register', ['uses' => 'UserAccounts\AccountsController@register', 'as' => 'register']);
 Route::post('register', ['uses' => 'UserAccounts\AccountsController@registerProcess', 'as' => 'register.process']);
 Route::post('register/check-your-email', ['uses' => 'UserAccounts\AccountsController@checkYourEmail', 'as' => 'register.checkYourEmail']);
@@ -76,6 +77,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth.admin', 'manage.applic
 
     Route::post('/editable/{id}', ['uses' => 'Admin\AdminController@editable', 'as' => 'admin.home']);
     Route::get('home', ['uses' => 'Admin\AdminController@home', 'as' => 'admin.home']);
+    Route::get('users', ['uses' => 'UserController@home', 'as' => 'user.page']);
     Route::get('guide', ['uses' => 'GuideController@list', 'as' => 'admin.guide']);
     Route::get('image-{id}', ['uses' => 'ImagesController@view', 'as' => 'admin.image.view']);
     Route::get('payment', ['uses' => 'Admin\AccountsAdminsController@payment', 'as' => 'admin.payment']);
@@ -94,6 +96,14 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth.admin', 'manage.applic
         Route::get('pre-check-{id}', ['uses' => 'Admin\Review\ConfirmationController@preCheck', 'as' => 'admin.review.confirmation.precheck']);
         Route::get('print-{id}', ['uses' => 'Admin\Review\PrintController@view', 'as' => 'admin.review.confirmation.print']);
     });
+
+    Route::delete('/user/destroy-{id}', ['uses' => 'UserController@destroy', 'as' => 'admin.user.destroy']);
+    Route::get('/user/edit-{id}', ['uses' => 'UserController@editPage', 'as' => 'admin.user.edit']);
+    Route::get('/user/create', ['uses' => 'UserController@createPage', 'as' => 'admin.user.create']);
+    Route::post('/user/create', ['uses' => 'UserController@create', 'as' => 'admin.user.form.create']);
+    Route::post('/user/edit/{id}', ['uses' => 'UserController@edit', 'as' => 'admin.user.form.edit']);
+
+
     Route::group(['prefix' => 'setting'], function () {
         Route::group(['prefix' => 'game-season'], function () {
             Route::get('list', ['uses' => 'Admin\GameSeasonController@list', 'as' => 'admin.setting.game_season.list']);
